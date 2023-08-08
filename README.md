@@ -6,10 +6,10 @@ GLON is a data format that builds on the traditional bullet point list. You can 
 GLON can stand on its own, in a .glon file, or form part of another plain text document. As GLON looks more like text than code, functions as a list, and suits proportional and monospace fonts, it can blend in wherever you put it. When you want to process any data written in GLON, the GLON parser can find it and convert it to JavaScript or JSON straight away.
 
 # GLON Examples
-<details><summary>Blocks Without Indents</summary>
+<details open><summary>Blocks Without Indents</summary>
 
 A block of GLON without indented items looks like a normal list. The example below suggests a few use cases for GLON.
-<pre>
+```markdown
 - Text files with some data
 - Document front matter
 - Personal Knowledge Management
@@ -19,12 +19,13 @@ A block of GLON without indented items looks like a normal list. The example bel
 - Notes and object oriented notes
 - Records
 - Outlines
-</pre>
+```
 </details>
 
 <details open ><summary>Blocks Without Indents</summary>
 A block of GLON with indented items looks like an outline. The example below gives some initial details about different parts of GLON.
-<pre>
+
+```markdown
 - The GLON parser can convert:
 	- From GLON to JavaScript.
 	- From GLON to JSON.
@@ -66,7 +67,7 @@ A block of GLON with indented items looks like an outline. The example below giv
 		- Full Line Comments: To create a full line comment, make its first visible characters two forward slashes.
 		- Inline Comments: You can place inline comments anywhere after a line's bullet point. They start with a slash asterisk /* make a comment */ and end with an asterisk slash.
 		- End of Line Comments: You can follow any value with a comment that runs until the line stops. End of line comments start with two slashes followed by one space. // End of line comment.
-	- HTML Style Comments: You can use HTML style comments for the above purposes in environments and formats that support no other kind. &lt;!-- HTML Comment --&gt;
+	- HTML Style Comments: You can use HTML style comments for the above purposes in environments and formats that support no other kind. <!-- HTML Comment -->
 - Contents: 
 	- Wikilinks:
 		- [[Wikilinks AS keys]]: [[Wikilinks AS values]]
@@ -88,7 +89,7 @@ A block of GLON with indented items looks like an outline. The example below giv
 			- { "a": 1, "b": 2, "c": 3 }
 		- CSS: * { padding: 0; }
 		- RegEx: (\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)
-		- HTML: &lt;a href="https://glon.pages.dev"&gt;GLON&lt;/a&gt;
+		- HTML: <a href="https://glon.pages.dev">GLON</a>
 - Signs:
 	- Multi-line string: -
 		- The parent line above ends with a minus sign.
@@ -96,7 +97,7 @@ A block of GLON with indented items looks like an outline. The example below giv
 	- Single line from many: +
 		- The parent line above ends with a plus sign.
 		- It tell the parser to join each line with a space.
-</pre>
+```
 </details>
 
 # GLON to JSON
@@ -104,7 +105,8 @@ With all options turned on, the parser converts the example GLON above into the 
 
 <details>
 <summary>Converted result</summary>
-<pre>
+
+```json
 [
 	[
 		"Text files with some data",
@@ -196,7 +198,7 @@ With all options turned on, the parser converts the example GLON above into the 
 				],
 				"CSS": "* { padding: 0; }",
 				"RegEx": "(\\d{4})-(\\d\\d)-(\\d\\d)T(\\d\\d):(\\d\\d)",
-				"HTML": "&lt;a href=\"https://glon.pages.dev\"/&gt;GLON&lt;/a&gt;"
+				"HTML": "<a href=\"https://glon.pages.dev\">GLON</a>"
 			}
 		},
 		"Signs": {
@@ -205,7 +207,7 @@ With all options turned on, the parser converts the example GLON above into the 
 		}
 	}
 ]
-</pre></details>
+```</details>
 
 # More
 Visit [the GLON website](https://glon.pages.dev/) for more details and examples about GLON, the GLON parser, and all features of both.
