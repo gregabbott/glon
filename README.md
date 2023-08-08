@@ -207,7 +207,8 @@ With all options turned on, the parser converts the example GLON above into the 
 		}
 	}
 ]
-```</details>
+```
+</details>
 
 # More
 Visit [the GLON website](https://glon.pages.dev/) for more details and examples about GLON, the GLON parser, and all features of both.
