@@ -88,7 +88,7 @@ A block of GLON with indented items looks like an outline. The example below giv
 			- { "a": 1, "b": 2, "c": 3 }
 		- CSS: * { padding: 0; }
 		- RegEx: (\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)
-		- HTML: &lt;a href="https://glon.pages.dev"/&gt;GLON&lt;/a&gt;
+		- HTML: &lt;a href="https://glon.pages.dev"&gt;GLON&lt;/a&gt;
 - Signs:
 	- Multi-line string: -
 		- The parent line above ends with a minus sign.
