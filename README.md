@@ -66,7 +66,7 @@ A block of GLON with indented items looks like an outline. The example below giv
 		- Full Line Comments: To create a full line comment, make its first visible characters two forward slashes.
 		- Inline Comments: You can place inline comments anywhere after a line's bullet point. They start with a slash asterisk /* make a comment */ and end with an asterisk slash.
 		- End of Line Comments: You can follow any value with a comment that runs until the line stops. End of line comments start with two slashes followed by one space. // End of line comment.
-	- HTML Style Comments: You can use HTML style comments for the above purposes in environments and formats that support no other kind. <\!-- HTML Comment -->
+	- HTML Style Comments: You can use HTML style comments for the above purposes in environments and formats that support no other kind. &lt;!-- HTML Comment --&gt;
 - Contents: 
 	- Wikilinks:
 		- [[Wikilinks AS keys]]: [[Wikilinks AS values]]
