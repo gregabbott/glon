@@ -22,7 +22,7 @@ A block of GLON without indented items looks like a normal list. The example bel
 ```
 </details>
 
-<details open ><summary>Blocks Without Indents</summary>
+<details open ><summary>Blocks With Indents</summary>
 A block of GLON with indented items looks like an outline. The example below gives some initial details about different parts of GLON.
 
 ```markdown
