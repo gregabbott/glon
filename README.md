@@ -70,7 +70,7 @@ You can support GLON at <a href=https://www.buymeacoffee.com/gregabbott>Buy Me A
     - HTML: <a href="https://glon.pages.dev">GLON</a>
 - Types:
   - Parsed Types: 
-    - glon.to_js has a "parse_type" option.
+    - glon.to_js has a "parse_types" option.
     - Set it to false to keep all values as strings.
     - Set it to true to convert values to types they match.
     - Some output target formats don't support some value types.
