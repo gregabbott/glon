@@ -1,9 +1,8 @@
-# GLON. The list based data format.
+# GLON: The list based data format.
 
-[GLON](https://glon.pages.dev/) stands for Greg's List Object Notation. GLON is an easy to read and write data format that builds on the traditional bullet point list. It defines maps without braces, arrays without brackets, and strings without quotes. As GLON keeps all characters free for use in values and keys, it plays well with the features of other plain text formats: from [[Wikilinks]] and #hashtags, to \[links]() and **bold**. The GLON software, written in vanilla JavaScript, converts JSON to GLON and GLON to JSON. It handles the basics and has hooks for custom functions. 
+Greg's List Object Notation uses the traditional bullet point list as the basis for an easy to read and write plain text data format called GLON. GLON supports the same data types as JSON, allows comments in keys and values, and works as a valid Markdown list. GLON's minimal syntax needs no brackets, braces or quotes to define its arrays, maps or strings. GLON lets you separate keys and values with colons OR equals, and lets you indent lines with tabs OR spaces. When using GLON and other plain text formats together, you can continue to enjoy their features. As GLON keeps all characters free to use in keys and values, it plays well with everything from [[wikilinks]] and #hashTags to **bold** and \[external](links).
 
-Visit [the GLON website](https://glon.pages.dev/) for more about this Markdown compatible format, the GLON software, and all features of both.
-The site features documentation with live examples and a two way GLON to JSON converter.
+Visit [the GLON website](https://glon.pages.dev/) for documentation with live examples, and a playground that runs the GLON software. Written in vanilla JavaScript with no dependencies, the GLON software works as a configurable two way GLON to JSON converter. Its various options include choosing whether to parse types or keep everything as strings. The GLON to JSON convertor also comes with hooks for custom functions. These functions can act on the data they receive, and optionally return different data to use instead.
 
 You can support GLON at <a href=https://www.buymeacoffee.com/gregabbott>Buy Me A Coffee</a> and <a href=https://ko-fi.com/gregabbott>Ko-fi</a>.
 
