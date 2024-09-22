@@ -6,7 +6,7 @@ Visit [the GLON website](https://glon.pages.dev/) for documentation with live ex
 
 You can support GLON at <a href=https://www.buymeacoffee.com/gregabbott>Buy Me A Coffee</a> and <a href=https://ko-fi.com/gregabbott>Ko-fi</a>.
 
-For a comparison to other data serialization formats, visit the [GLON compare page](https://glon.pages.dev/compare).
+To see how GLON relates other data serialization formats, visit the [GLON compare page](https://glon.pages.dev/compare).
 
 # Example
 <details open ><summary>GLON looks like this</summary>
