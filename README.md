@@ -39,7 +39,7 @@ To see how GLON relates other data serialization formats, visit the [GLON compar
   - Whitespace may populate strings:
   -             
   - Strings may contain any characters. 🙂
-  - In GLON, keys use strings to name map items.
+  - All GLON map items have strings for keys.
 - Key Value Separators: // For map items
   - First: The first line per level sets the separator style.
   - Normal separators: // For standard presentation
@@ -193,7 +193,7 @@ With all options turned on, the software converts the example GLON above into th
       "Whitespace may populate strings:",
       "            ",
       "Strings may contain any characters. 🙂",
-      "In GLON, keys use strings to name map items."
+      "All GLON map items have strings for keys."
     ],
     "Key Value Separators": {
       "First": "The first line per level sets the separator style.",
