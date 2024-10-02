@@ -1,6 +1,6 @@
 # GLON: The list based data format.
 
-Greg's List Object Notation uses the traditional bullet point list as the basis for an easy to read and write plain text data format called GLON. GLON supports the same data types as JSON, allows comments in keys and values, and works as a valid Markdown list. GLON's minimal syntax defines maps without braces, arrays without brackets, and strings without quotes. GLON keeps all characters free to use in values and keys so plays well with features of other plain text formats, from [[wikilinks]] and #hashTags to \*\*bold** and \[external](links). GLON understands keys and values separated with colons or equals, and handles lines indented with tabs or spaces.
+Greg's List Object Notation uses bullet point lists as the basis for an easy to read and write plain text data format called GLON. GLON supports the same data types as JSON, allows comments in keys and values, and works as a valid Markdown list. GLON's minimal syntax defines maps without braces, arrays without brackets, and strings without quotes. GLON keeps all characters free to use in values and keys so plays well with features of other plain text formats, from [[wikilinks]] and #hashTags to \*\*bold** and \[external](links). GLON understands keys and values separated with colons or equals, and handles lines indented with tabs or spaces.
 
 Visit [the GLON website](https://glon.pages.dev/) for documentation with live examples, and a playground that runs the GLON software. Written in vanilla JavaScript with no dependencies, The GLON software works as a configurable two way GLON to JSON converter. Its options include choosing whether to parse types or to keep everything as strings. The GLON to JSON convertor also comes with hooks for custom functions. These functions can act on the data they receive, and optionally return different data to use instead.
 
@@ -12,44 +12,43 @@ To see how GLON relates other data serialization formats, visit the [GLON compar
 <details open ><summary>GLON looks like this</summary>
 
 ```markdown
-- The GLON software (Vanilla JavaScript) can convert:
-  - From GLON to JavaScript and JSON
-  - From JSON and JavaScript to GLON.
-- Objects:
-  - GLON has two main object types: arrays and maps.
+- Blocks:
+  - The GLON parser splits a document into Blocks.
+  - One or more empty lines separates Blocks in a document.
+  - Data Blocks hold GLON. Other Blocks hold anything else.
+  - This section looks at Data Blocks.
+- Collection types:
+  - Each Data Block forms one of GLON's main collection types:
   - Maps:
     - Maps hold named items as key value pairs.
     - These convert to JavaScript or JSON objects.
   - Arrays:
     - Arrays hold unnamed items in insertion order.
     - These convert to JavaScript or JSON arrays.
-  - Both: Both maps and arrays can contain sub-objects.
+  - Both: Maps and arrays can hold further maps and arrays.
 - Indents:
-  - You can indent GLON with **tabs OR spaces**. 
   - The first indent in a block sets the block's indent value.
-  - In GLON, a block means consecutive lines of visible text.
-  - A "GLON block" holds valid GLON, an "Other block" doesn't.
-  - One or more empty lines separates blocks.
-- Values and Keys: 
-  - Strings and keys require no quotes.
+  - GLON supports lines indented with **tabs OR spaces**. 
+- Strings: 
+  - Strings require no quotes.
   - "Quotes around a string or key form part of its content."
-  -      Strings and keys may start or end with whitespace.    
+  -      Strings may start or end with whitespace.    
   - glon.to_js can keep or trim whitespace surrounding strings.
-  - Strings and keys may stay empty:
+  - Strings may stay empty:
   - 
-  - Whitespace may populate strings and keys:
+  - Whitespace may populate strings:
   -             
-  - glon.to_js can keep or trim whitespace surrounding keys.
-  - Strings and keys may contain any characters.
-- Separators:
-  - First: The first line per level sets the separator type.
+  - Strings may contain any characters. 🙂
+  - In GLON, keys use strings to name map items.
+- Key Value Separators: // For map items
+  - First: The first line per level sets the separator style.
   - Normal separators: // For standard presentation
     - a: 1
     - b: 2
   - Equals separators: // For faster typing
     - a = 1
     - b = 2
-- String and key options: 
+- Compatibility: 
   - Wikilinks:
     - [[Wikilinks AS keys]]: [[Wikilinks AS values]]
     - [[Wikilinks]] IN [[keys]]: [[Wikilinks]] IN [[values]]
@@ -75,8 +74,9 @@ To see how GLON relates other data serialization formats, visit the [GLON compar
     - glon.to_js has a "parse_types" option.
     - Set it to false to keep all values as strings.
     - Set it to true to convert values to types they match.
-    - Some output target formats don't support some value types.
-    - glon.to_js converts any unsupported types back to strings.
+    - Some output target formats don't support some data types.
+    - The software converts unsupported data types to strings.
+    - For example, the to_json option converts dates to strings.
   - Supported Types:
     - Numbers:
       - Positive: 1024
@@ -88,11 +88,10 @@ To see how GLON relates other data serialization formats, visit the [GLON compar
       - true
       - false
     - Null: null
-    - Dates: 
-      - Local: 2023-08-01
+    - Dates: // See the dates section for more.
+      - Local: 2024-10-01
       - Offset: 2001-02-03T04:05:06+03:00
       - ISO: 2022-08-21T12:10:00Z
-      - See the dates section for more.
     - Not a Number: NaN
     - Infinity: infinity
   - Specified Types: 
@@ -142,6 +141,14 @@ To see how GLON relates other data serialization formats, visit the [GLON compar
   - Single line from many: +
     - The parent line above ends with a plus sign.
     - It tells glon.to_js to join each line with a space.
+  - Force strings: "
+    - The parent line above ends with a quotes sign.
+    - It tells glon.to_js to make this item an array of strings.
+    - This helps when your data looks more like another type.
+    - 123
+    - true
+    - null
+    - 2024-10-01
 ```
 </details>
 
@@ -154,12 +161,14 @@ With all options turned on, the software converts the example GLON above into th
 ```json
 [
   {
-    "The GLON software (Vanilla JavaScript) can convert": [
-      "From GLON to JavaScript and JSON",
-      "From JSON and JavaScript to GLON."
+    "Blocks": [
+      "The GLON parser splits a document into Blocks.",
+      "One or more empty lines separates Blocks in a document.",
+      "Data Blocks hold GLON. Other Blocks hold anything else.",
+      "This section looks at Data Blocks."
     ],
-    "Objects": {
-      "GLON has two main object types": "arrays and maps.",
+    "Collection types": {
+      "Each Data Block forms one of GLON's main collection types": "",
       "Maps": [
         "Maps hold named items as key value pairs.",
         "These convert to JavaScript or JSON objects."
@@ -168,29 +177,26 @@ With all options turned on, the software converts the example GLON above into th
         "Arrays hold unnamed items in insertion order.",
         "These convert to JavaScript or JSON arrays."
       ],
-      "Both": "Both maps and arrays can contain sub-objects."
+      "Both": "Maps and arrays can hold further maps and arrays."
     },
     "Indents": [
-      "You can indent GLON with **tabs OR spaces**. ",
       "The first indent in a block sets the block's indent value.",
-      "In GLON, a block means consecutive lines of visible text.",
-      "A \"GLON block\" holds valid GLON, an \"Other block\" doesn't.",
-      "One or more empty lines separates blocks."
+      "GLON supports lines indented with **tabs OR spaces**. "
     ],
-    "Values and Keys": [
-      "Strings and keys require no quotes.",
+    "Strings": [
+      "Strings require no quotes.",
       "\"Quotes around a string or key form part of its content.\"",
-      "     Strings and keys may start or end with whitespace.    ",
+      "     Strings may start or end with whitespace.    ",
       "glon.to_js can keep or trim whitespace surrounding strings.",
-      "Strings and keys may stay empty:",
+      "Strings may stay empty:",
       "",
-      "Whitespace may populate strings and keys:",
+      "Whitespace may populate strings:",
       "            ",
-      "glon.to_js can keep or trim whitespace surrounding keys.",
-      "Strings and keys may contain any characters."
+      "Strings may contain any characters. 🙂",
+      "In GLON, keys use strings to name map items."
     ],
-    "Separators": {
-      "First": "The first line per level sets the separator type.",
+    "Key Value Separators": {
+      "First": "The first line per level sets the separator style.",
       "Normal separators": {
         "a": 1,
         "b": 2
@@ -200,7 +206,7 @@ With all options turned on, the software converts the example GLON above into th
         "b": 2
       }
     },
-    "String and key options": {
+    "Compatibility": {
       "Wikilinks": {
         "[[Wikilinks AS keys]]": "[[Wikilinks AS values]]",
         "[[Wikilinks]] IN [[keys]]": "[[Wikilinks]] IN [[values]]"
@@ -231,11 +237,12 @@ With all options turned on, the software converts the example GLON above into th
     },
     "Types": {
       "Parsed Types": [
-        "glon.to_js has a \"parse_type\" option.",
+        "glon.to_js has a \"parse_types\" option.",
         "Set it to false to keep all values as strings.",
         "Set it to true to convert values to types they match.",
-        "Some output target formats don't support some value types.",
-        "glon.to_js converts any unsupported types back to strings."
+        "Some output target formats don't support some data types.",
+        "The software converts unsupported data types to strings.",
+        "For example, the to_json option converts dates to strings."
       ],
       "Supported Types": {
         "Numbers": {
@@ -250,12 +257,11 @@ With all options turned on, the software converts the example GLON above into th
           false
         ],
         "Null": null,
-        "Dates": [
-          "Local: 2023-08-01",
-          "Offset: 2001-02-03T04:05:06+03:00",
-          "ISO: 2022-08-21T12:10:00Z",
-          "See the dates section for more."
-        ],
+        "Dates": {
+          "Local": "2024-09-30T23:00:00.000Z",
+          "Offset": "2001-02-03T01:05:06.000Z",
+          "ISO": "2022-08-21T12:10:00.000Z"
+        },
         "Not a Number": "NaN",
         "Infinity": "infinity"
       },
@@ -310,7 +316,16 @@ With all options turned on, the software converts the example GLON above into th
     },
     "Signs": {
       "Multi-line string": "The parent line above ends with a minus sign.\nIt tells glon.to_js to join these lines with newlines.",
-      "Single line from many": "The parent line above ends with a plus sign. It tells glon.to_js to join each line with a space."
+      "Single line from many": "The parent line above ends with a plus sign. It tells glon.to_js to join each line with a space.",
+      "Force strings": [
+        "The parent line above ends with a quotes sign.",
+        "It tells glon.to_js to make this item an array of strings.",
+        "This helps when your data looks more like another type.",
+        "123",
+        "true",
+        "null",
+        "2024-10-01"
+      ]
     }
   }
 ]
