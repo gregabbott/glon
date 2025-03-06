@@ -1,0 +1,1797 @@
+<!-- GLON Copyright © 2022-2025 Greg Abbott (uk).
+https://gregabbott.pages.dev
+Version: 2025_0306-->
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<title>GLON</title>
+<meta charset=utf-8>
+<link rel=icon href="f.svg">
+<link rel="mask-icon" href="f.svg">
+<meta name=description 
+content="GLON uses plain text lists as the basis for an easy to read and write data format. 
+It converts to and from JSON, allows comments, and works as a Markdown list.">
+<meta name=author content="Greg Abbott">
+<link href=c.css rel=stylesheet>
+<style>
+.no_script{
+display: none;
+}
+</style>
+<noscript>
+  <style>
+  .hide_if_scripts_disabled {
+  display: none !important;
+  }
+  noscript,
+  .noscript {
+  overflow: auto;
+  font-size: 1em;
+  white-space: pre-wrap;
+  }
+  #markdown_docs {
+  overflow: auto !important;
+  font-size: 1em;
+  margin: 0 auto;
+  display: block;
+  max-width: 64ch;
+  padding: 1ch;
+  white-space: pre-wrap;
+  }
+  </style>
+</noscript>
+</head>
+<body>
+	<input type=radio hidden name=font_spacing id=proportional>
+	<input type=radio hidden name=font_spacing id=monospace checked>
+	<input type=checkbox hidden id=show_html_text_area checked>
+	<input type=checkbox hidden id=show_glon_text_area>
+	<input type=checkbox hidden id=show_json_text_area >
+	<input type=checkbox hidden id="toggle_section_nav" checked>
+  <div id="section_menu_togglers">
+    <label
+        class="
+        no_select
+        sections_toggler_vertical
+        menu_button hide_if_scripts_disabled
+        "
+        id="show_section_menu_vertical_toggler"
+        for=toggle_section_nav
+        title="Show Sections Menu"
+        >
+        <span>&gt;</span>
+      </label>
+      <label
+      class="
+      no_select
+      sections_toggler_vertical
+      menu_button hide_if_scripts_disabled
+      "
+      id="hide_section_menu_vertical_toggler"
+      for=toggle_section_nav
+      title="Hide Sections Menu"
+      >
+      <span>&lt;</span>
+    </label>
+    </div>
+  <main>
+	<div id=menu_bar class="no_select">
+		<input name=m_bar id=close_sub_menu type=radio checked>
+		<label for=close_sub_menu></label>
+		<div id="icon"></div>
+		<div class=menu_item>
+			<input hidden id=mm_about name=m_bar type=radio>
+			<label class=menu_button for=mm_about 
+			title="Greg's List Object Notation">GLON
+			</label>
+			<fieldset role=presentation class=sub_menu_holder>
+				<button popovertarget="license_popover">About + License</button>
+        <a href="changelog.html">Change Log</a>
+        <a href="compare.html">Compare GLON</a>
+				<a href=https://github.com/gregabbott/glon>GitHub</a>
+        <a href=glon.js download>glon.js ~55KB</a>
+			</fieldset>
+		</div>
+		<div class="menu_item hide_if_scripts_disabled">
+			<input hidden id=mm_settings name=m_bar type=radio>
+			<label class=menu_button for=mm_settings>Settings</label>
+			<fieldset id="to_js_settings_fields" role=presentation class="sub_menu_holder wider_drop_down">
+				<input type=checkbox checked hidden id=parse_types>
+				<label for=parse_types>Parse Types</label>
+				<input type=checkbox checked hidden id=parse_dates>
+				<label for=parse_dates>Parse Dates</label>
+				<input type=checkbox hidden id=trim_strings>
+				<label for=trim_strings>Trim Strings</label>
+				<input type=checkbox hidden id=trim_keys>
+				<label for=trim_keys>Trim Keys</label>
+				<input type=checkbox checked hidden id=log_errors>
+				<label for=log_errors>Log (Errors)</label>
+				<hr>
+				<span>Hook demo functions:</span>
+				<input type=checkbox hidden id=strip_key_bold>
+				<label for=strip_key_bold>Strip Bold from Keys</label>
+				<input type=checkbox hidden id=strip_wiki_key_brackets>
+				<label for=strip_wiki_key_brackets>Strip Wikilink Key Brackets</label>
+				<input type=checkbox hidden id=strip_wiki_value_brackets>
+				<label for=strip_wiki_value_brackets>Strip Wikilink Value Brackets</label>
+			</fieldset>
+		</div>
+		<div class="menu_item hide_if_scripts_disabled">
+			<input hidden id=mm_view name=m_bar type=radio>
+			<label class=menu_button for=mm_view>View</label>
+			<fieldset role=presentation class=sub_menu_holder>
+        <label for=toggle_section_nav>Sidebar</label>
+        <hr>
+					<label for=proportional title="Show GLON in a proportional font" >Proportional</label>
+					<label for=monospace title="Show GLON in a monospace font">Monospace</label>
+					<hr>
+					<label for=show_html_text_area >Read</label>
+					<label for=show_glon_text_area title="Converts GLON to JSON text area">GLON Text Area</label>
+					<label for=show_json_text_area title="Converts JSON to GLON text area">JSON Text Area</label>
+			</fieldset>
+		</div>
+		<div class=menu_item>
+			<input hidden id=mm_support name=m_bar type=radio>
+			<label class=menu_button for=mm_support>Give</label>
+			<fieldset role=presentation class=sub_menu_holder>
+        <a href=https://ko-fi.com/gregabbott
+          title="Support GLON on Ko-fi">Ko-fi</a>
+        <a href=https://www.buymeacoffee.com/gregabbott
+        title="Support GLON on Buy Me A Coffee">Buy Me a Coffee</a>
+			</fieldset>
+		</div>
+    <noscript><mark>Enable scripts for live converter and examples</mark></noscript>
+</div>
+<div id="main">
+<div id="section_links" class="no_select hide_if_scripts_disabled">
+  <ul id="section_links_ul"></ul>
+</div>
+<div id="main_content">
+  <div id="main_content_header" class="no_select">
+    <div id="current_section_name">GLON Documentation</div>
+  </div>
+  <div id="main_columns">
+    <div id=sections>
+      <h2 class="no_select hide_if_scripts_disabled">Reader View</h2>
+      <div id=markdown_docs class="no_script">
+# Overview
+<pre>
+- GLON uses bullet point lists as the basis for a data format.
+- It supports the same plain text data types as JSON,
+- Allows comments in keys and values,
+- And works as a valid Markdown list.
+- GLON's minimal syntax defines:
+- 
+  - Maps: without braces
+  - Arrays: without brackets
+  - Strings: without quotes
+- GLON keeps all characters free to use in values and keys,
+- And plays well with features of other plain text formats:
+- 
+  - From: [[Wikilinks]] and #hashTags
+  - To: **Bold** and [Links]()
+
+- The GLON project also includes two way converter software.
+- Written as a vanilla JavaScript library, it converts:
+- 
+  - From JSON and JS to GLON.
+  - From GLON to JS and JSON.
+- The GLON parser also comes with hooks for custom functions.
+</pre>
+
+See below for a quick list of the general parts.
+For specifics, see the sections in the sidebar.
+
+<pre>
+- Blocks:
+  - The GLON parser splits a document into Blocks.
+  - One or more empty lines separates Blocks in a document.
+  - Data Blocks hold GLON. Other Blocks hold anything else.
+- Collection types:
+  - Each Data Block forms one of GLON's main collection types:
+  - Maps:
+    - Maps hold named items as key value pairs.
+    - These convert to JavaScript or JSON objects.
+  - Arrays:
+    - Arrays hold unnamed items in insertion order.
+    - These convert to JavaScript or JSON arrays.
+  - Both: Maps and arrays can hold further maps and arrays.
+- Indents:
+  - The first indent in a block sets the block's indent value.
+  - GLON supports lines indented with **tabs OR spaces**. 
+- Strings: 
+  - Strings require no quotes.
+  - "Quotes around a string or key form part of its content."
+  -      Strings may start or end with whitespace.    
+  - glon.to_js can keep or trim whitespace surrounding strings.
+  - Strings may stay empty:
+  - 
+  - Whitespace may populate strings:
+  -             
+  - Strings may contain any characters. 🙂
+  - All GLON map items have strings for keys.
+- Key Value Separators: // For map items
+  - First: The first line per level sets the separator style.
+  - Normal separators: // For standard presentation
+    - a: 1
+    - b: 2
+  - Equals separators: // For faster typing
+    - a = 1
+    - b = 2
+- Compatibility: 
+  - Wikilinks:
+    - [[Wikilinks AS keys]]: [[Wikilinks AS values]]
+    - [[Wikilinks]] IN [[keys]]: [[Wikilinks]] IN [[values]]
+  - Hash Tags: 
+    - #tagsInKeys: #tagInValues
+  - Markdown:
+    - Bold:
+      - **Bold Keys**: **Bold values**.
+      - **Bold** in Keys: **Bold** in values.
+    - Links:
+      - [Links as Keys](): [Links as values]()
+      - [Links]() in [Keys](): [Links]() in [values]()
+  - Snippets:
+    - JavaScript: function add_one (n) { return n + 1 }
+    - JSON: 
+      - [ 1, 2, 4 ]
+      - { "a": 1, "b": 2, "c": 3 }
+    - CSS: * { padding: 0; }
+    - RegEx: (\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)
+    - HTML: &lt;a href="https://glon.pages.dev">GLON&lt;/a>
+- Types:
+  - Parsed Types: 
+    - glon.to_js has a "parse_types" option.
+    - Set it to false to keep all values as strings.
+    - Set it to true to convert values to types they match.
+    - Some output target formats don't support some data types.
+    - The software converts unsupported data types to strings.
+    - For example, the to_json option converts dates to strings.
+  - Supported Types:
+    - Numbers:
+      - Positive: 1024
+      - Comma separators: 1,024 // Accepts and strips
+      - Underscore separators: 1_024 // Accepts and strips
+      - Negative: -1
+      - Decimal: 3.14
+    - Booleans: 
+      - true
+      - false
+    - Null: null
+    - Dates: // See the dates section for more.
+      - Local: 2024-10-01
+      - Offset: 2001-02-03T04:05:06+03:00
+      - ISO: 2022-08-21T12:10:00Z
+    - Not a Number: NaN
+    - Infinity: infinity
+  - Specified Types: 
+    - Each document may include a Type Block.
+    - A Type Block sets value types for specific keys.
+    - glon.to_js checks any map items with these keys.
+    - It accepts an item's value if it matches the wanted type.
+    - Otherwise, it converts an item's value to the wanted type.
+    - If it can't convert the value, it logs a message.
+    - See the Type Block section for more.
+- Hooks: 
+  - You can configure glon.to_js with custom functions.
+  - The parser sends relevant data to these functions as it runs.
+  - Your functions may act on and replace the data they receive.
+  - The parser has two hooks so you can target specific data.
+  - "value_hook" can process values.
+  - "key_hook" can process map item names.
+  - See the Hook sections for more.
+- Comments: 
+  - Handling Comments: 
+    - glon.to_js strips all comments from all data blocks.
+  - Comment Types:
+    - Full Line Comments: 
+      - Full line comments start with two forward slashes.
+      //- To turn a line into a comment, add "//" to its start.
+      - You can indent full line comments as needed.
+    - Inline Comments: 
+      - A line can hold any number of inline comments.
+      - Inline comments sit between a pair of tags.
+      - The left tag equals slash asterisk: "/*".
+      - The right tag equals asterisk slash: "*/".
+      - You can place inline comments anywhere in a line.
+      - /*before*/ content /*between*/ content /*and after it.*/
+      - Only the presence of both tags forms an inline comment.
+      - Either tag on its own remains part of a line's content.
+    - End of Line Comments:
+      - You can add an end of line comment after a line's value.
+      - They start with two slashes followed by a space.
+      - They run until the line stops. // An example comment.
+  - HTML Style Comments: &lt;!-- HTML comments look like this --&gt;
+    - Some environments support HTML comments and no other kind.
+    - In these environments, you can use HTML comments instead.
+- Signs:
+  - Multi-line string: -
+    - The parent line above ends with a minus sign.
+    - It tells glon.to_js to join these lines with newlines.
+  - Single line from many: +
+    - The parent line above ends with a plus sign.
+    - It tells glon.to_js to join each line with a space.
+  - Force strings: "
+    - The parent line above ends with a quotes sign.
+    - It tells glon.to_js to make this item an array of strings.
+    - This helps when your data looks more like another type.
+    - 123
+    - true
+    - null
+    - 2024-10-01
+</pre>
+
+## Description
+
+Greg's List Object Notation uses the traditional bullet point list as the basis for an easy to read and write plain text data format called GLON.
+
+You can use GLON to structure and present information clearly and simply. And when you want to process data written in GLON, the GLON parser can convert it to JavaScript or JSON straight away. It can parse data to types or keep values as strings, and has options to send data through any custom functions you choose to supply.
+
+GLON supports maps, arrays, strings and more. It defines them without braces, brackets or quotes. It keeps all of these characters unreserved and free to use elsewhere. When using GLON and other plain text formats together, you can enjoy their features that require these characters, like [[wikilinks]], #hashtags, markdown **bold** and [external](links).
+
+As GLON has a minimal syntax, resembles punctuation more than code, and looks good in proportional fonts and monospace fonts, GLON can blend in wherever you put it. GLON can stand on its own, in a easy to transfer .glon file, or form part of another plain text document. glon.to_js can find and extract any GLON in a document and skip all other content.
+
+## Preview
+
+Simple data written in GLON looks and functions as a bullet point list:
+<pre>
+- Site: GLON Homepage
+- Version: 2024-09-24
+- Published: true
+</pre>
+
+More involved data written in GLON looks and function like an outline.
+<pre>
+- Goals: 
+	- Introduce
+	- Demonstrate
+	- Share
+- What: +
+	- The GLON format.
+	- The GLON scripts (Vanilla JS).
+	- The features of both.
+- How: 
+	- Documentation: 
+		- Examples.
+		- Live two-way converter. // To JSON. To GLON.
+		- Live settings.
+</pre>
+
+The examples above preview these GLON features:
+<pre>
+- Arrays
+- Maps
+- Hierarchy
+- Strings
+- Numbers
+- Dates
+- Booleans
+- Comments
+- One line presented over many.
+</pre>
+
+## Use Cases
+
+GLON lends itself to text documents with some data and data documents with some text.
+
+Some use cases to consider include:
+<pre>
+- Writing JavaScript or JSON easily.
+- Records // Receipts, bills, transactions, contacts, statistics, reports, emails, forms
+- Logs
+- Outlines
+- Instructions
+- Notes
+- Personal Knowledge Management
+- Wikis and cross-linked files
+- Document front matter
+- Meta data files
+- Sidecar files
+</pre>
+
+## Friendly
+
+The next sections give some examples and ideas of how GLON and other format and environments can go together.
+
+### Markdown
+
+You can use GLON anywhere in a Markdown document.
+<pre>
+- All Markdown editors and previewers render GLON Data Blocks like any normal list.
+- You can paste the content of the GLON text area into a Markdown editor to see.
+</pre>
+
+You can use Markdown anywhere in GLON. It supports:
+<pre>
+- **Bold keys**: 
+	- You might have a key in a map that would benefit from emphasis.
+	- You might want to format keys in bold to visually separate them from values.
+	- If you have a reason to make a key bold, you can.
+	- If you want to strip bold from keys when converting to JavaScript or JSON you can supply glon.to_js with a custom function like the example in the Settings menu.
+	- This results in ready-to-process keys whether they contain bold or not.
+	- You can toggle the option in the settings menu to see the difference.
+- **Links**:
+	- Links as values: [link title](URL) &lt;!-- No quotes needed -->
+	- [Links as keys](URL): No quotes needed.
+	- **[bold links as keys](URL)**: Links anywhere.
+- **HTML Comments**: 
+	&lt;!-- - Although Markdown has no comment syntax, -->
+	- Most Markdown editors that support comments accept HTML comments.
+	- The GLON parser strips out any HTML comments it finds in a Data Block.
+	- The HTML style allows comments in editors and environments that support no other kind.
+</pre>
+
+When converting GLON to JavaScript or JSON, you may want to process Markdown content in a specific way. To do this, you can supply glon.to_js with custom functions which it will send data through as it runs.
+
+This site has configured glon.to_js with an example custom function, and lists the function's options in the settings menu at the top. 
+
+For an idea of how you can use custom functions to work with Markdown data, you can toggle the option named "Strip Bold From Keys" and see the output change in the JSON text area.
+
+<pre>
+- **Bold Key 1**: A
+- **Bold Key 2**: B
+</pre>
+
+### Wikilinks
+You can place wikilinks anywhere in GLON without needing any surrounding quotes.
+
+<pre>
+- You can use them in arrays:
+	- [[AS values]]
+	- And IN [[values]]
+- You can use them in maps:
+	- [[Wikilinks AS keys]]: [[AS values]]
+	- Wikilinks IN [[keys]]: IN [[values]]
+</pre>
+
+When converting GLON to JavaScript or JSON, you may want to process wikilinks in a specific way. To do this, you can supply glon.to_js with custom functions which it will send data through as it runs.
+
+This site has configured glon.to_js with an example custom function, and lists the function's options in the settings menu at the top. You can toggle these options to see how they change the results in the JSON text area.
+
+The example named "Strip Wikilink Key Brackets" can make object properties simpler to access and work with.
+
+The example named "Strip Wikilink Value Brackets" acts on values that contain nothing but a single wikilink. It reduces them to their inner content. This results in ready-to-process data that has useful local file navigation in the mean time.
+
+### Hashtags
+
+You can use hash tags anywhere in GLON. glon.to_js treats any hash tags in keys or values as part of the data, and ignores any hash tags in comments or Other Blocks.
+
+Combining hash tags and GLON results in ready-to-process data, stored in files you can group, sort, and find by tags.
+<pre>
+- #tags: 
+	- #GLON/documentation
+	- #compatibility
+- Software:
+	- Text editors
+	- Personal wikis
+	- Personal knowledge management
+	- File finders
+</pre>
+
+### Snippets
+
+You can use GLON to store many kinds of snippets, including code:
+<pre>
+// Code snippets
+- JavaScript: function add_one (n) { return n + 1 }
+- RegEx: (\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)
+- JSON: { "a": "1", "b": [1,2,3] }
+- CSS: * { padding: 0; } // etc
+- HTML: &lt;a href="#glon">GLON&lt;/a>
+- Multi-line snippets: -
+	- function trim (x) {
+	- 	return x.trim()
+	- }
+</pre>
+
+### JavaScript
+
+To store GLON in JavaScript files, put it inside a JavaScript comment and glon.to_js will find it (see the JSON text area).
+<pre>
+/*
+
+- Author: G.A
+- Version: 0.0.X
+- Date: 2024-09-24
+- Notes:
+	- 1
+	- 2
+
+*/
+</pre>
+
+### Lists and Outlines
+GLON functions as a list in plain text and Markdown editors and works with any list outline features they have.
+
+If your text editor can fold lists, it can fold GLON. If it knows to move sub-lists when you move a list item, it can do that with GLON too. If it inserts tabs or spaces, GLON accepts either for indentation.
+
+
+# Blocks
+
+The GLON parser divides a document into blocks and looks at the content of each block to determine its kind. A document can hold data-blocks and other blocks.
+
+Each block holds one or more lines of content while an empty line separates one block from another. The first line of content after an empty line starts a block. The first empty line after a line of content ends a block. The first block can start at the top of a document, and the last can end at the bottom of a document.
+
+## Other Blocks
+
+glon.to_js considers any block lacking valid GLON an Other Block. It ignores Other Blocks which may contain anything at all: paragraphs, code, mark up, prose, references, resources, notes etc.
+
+## Data Blocks
+
+Data Blocks hold GLON, content written in the GLON format. glon.to_js only processes data in Data Blocks.
+
+Each Data Block in a document represents one object: Either an array or a map.
+
+## Objects
+
+GLON has two main kinds of object that can hold multiple items: arrays and maps.
+
+Each object has at least one line and holds at least one value.
+
+Objects can hold any number of values and sub-objects.
+
+### Arrays
+
+GLON arrays store unnamed items in sequential order. You can create one by writing a bullet point list. In a basic array, each line translates to one item in the array:
+<pre>
+- Letter
+- Number
+</pre>
+
+The empty line above ends the array and allows another to start:
+<pre>
+- A
+- 1
+</pre>
+
+You can create as many arrays as you like in a document:
+<pre>
+- B
+- 2
+</pre>
+
+The above Data Blocks convert to a CSV like structure of field names then records.
+
+### Maps
+
+Map objects hold key value pairs. To write a map, each item in an object needs:
+<pre>
+- A key: A string that follows the bullet character and names the item value.
+- A separator: A string that separators the key from the value.
+- A value: Any content, which may equal an empty string, after the separator.
+</pre>
+
+If any line lacks a separator, the level returns an array:
+<pre>
+- Book 1 Title: Subtitle
+- Book 2 Title Has No Subtitle
+</pre>
+
+See also: keep-as-array
+
+#### Keys
+
+<pre>
+- 🙂: Keys may contain any string.
+- : This item has an empty string for its key.
+- unique: Each map item has a unique key.
+- unique: Reuse of a key in a map replaces any earlier value.
+- Unique: Case-sensitive keys make this item different to the one above.
+- 	keys may have whitespace     : glon.to_js has an option to trim whitespace that surrounds keys.
+</pre>
+
+#### Separators
+GLON accepts (": " and " = ") as map item key value separators. 
+
+The first separator on a map item line ends the key and starts the value.
+
+If any line in an object lacks a separator, the object parses as an array.
+
+Otherwise, the first separator in a block defines the expected separator for the rest of the block.
+
+<pre>
+- Name: Movie Title
+</pre>
+
+All content after the first separator forms the item value.
+<pre>
+- Name: Movie Title: Subtitle
+</pre>
+
+If you set this site to display "BOTH", which shows the GLON and JSON text area at the same time, you can see how GLON examples translate to JSON.
+
+##### Normal Separators
+
+A colon followed by a space, ": ", serves as the standard key value separator string in GLON.
+<pre>
+- Subject: Documentation
+- Language: E-Prime
+- Notes: Where suitable
+</pre>
+
+To use the normal separator in a key, escape it by placing a backslash before its visible symbol:
+<pre>
+- Title\: Actual: A
+- Title\: English: B
+</pre>
+
+##### Equals Separators
+
+glon.to_js also accepts " = " (space equals space) as a key value separator.
+
+<pre>
+- item 1: 
+	- price = 20
+	- discount = 5
+	- total = price - discount
+- item 2: 
+	- price = 20
+	- discount = 5
+	- total = price - discount
+</pre>
+
+To use the equals separator in a key, escape it by placing a backslash before its visible symbol:
+
+<pre>
+- x = 1
+- y = 1
+- x \= y = true
+</pre>
+
+#### Map Item Order
+
+The "to_json" function keeps keys in insertion order.
+<pre>
+- a: 1
+- b: 2
+- c: 3
+- 1: 4
+- 2: 5
+- 3: 6
+</pre>
+
+Converting to JavaScript may change the order of keys. If a map has any keys that look like positive numbers, JavaScript places these before others, in ascending order.
+
+### Keep as Array
+
+If all items in a block happen to contain a separator, glon.to_js will create a map when you may want an array. To ensure a level stays as an array, you can:
+
+(1) Escape any separators in the first item, by placing a backslash before the first visible character of each.
+<pre>
+- This item contains no separators\: only an escaped one.
+- The lack of a separator in the line above makes this block an array.
+- Further separators require no escaping: should any appear in any other lines.
+</pre>
+
+(2) Add one blank item.
+<pre>
+- a: 1
+- b: 2
+- 
+</pre>
+
+(3) Make one line separator free.
+
+See also: 'glon.to_js' Max Key Length option
+
+## Sub Objects
+
+You can create sub-objects within a Data Block. Each sub-object starts with a parent line. In a map, the parent line ends with the key value separator ": ". In an array, the parent line looks like an empty array item. "- ". Lines that follow, indented one level more, populate the sub-object.
+
+To end a sub-object, return to any less indented level or end the Data Block.
+
+Note: glon.to_js allows trailing whitespace on parent lines in case any editor needs it to render Data Blocks properly.
+
+### Map in a Map
+<pre>
+- Kind: Invoice
+- ID: 0001
+- From:
+	- Name: 
+	- Address: 
+- To: 
+	- Name: 
+	- Address: 
+- For: 
+	- Project: 
+	- Description: 
+- Total: 1000.00
+- Currency: XYZ
+</pre>
+
+### Array in a Map
+<pre>
+- Numbers:
+	- 1
+	- 2
+- Letters:
+	- a
+	- b
+- Booleans:
+	- true
+	- false
+</pre>
+
+### Map in an Array
+<pre>
+-  
+	- book name: 
+	- book series: 
+	- book rating: 
+-  
+	- book name: 
+	- book series: 
+	- book rating: 
+</pre>
+
+### Array in an Array
+<pre>
+-  
+	- red
+	- green
+-  
+	- yellow
+	- purple
+-  
+	- blue
+	- orange
+</pre>
+
+### Indentation
+
+glon.to_js determines what string value equals one indent on a per block basis. It finds the first indented line in a block then samples the whitespace that indents it. Any indentation always starts a line. The bullet character marks the end of any indentation. These strings may equal one indent: one tab, one or more spaces.
+
+#### Tab Indents
+<pre>
+- Tabs:
+	- One tab character indents this first indented line in this Data Block.
+	- The line above set the value equal to one indent in this Data Block to one tab.
+</pre>
+
+#### Space Indents
+<pre>
+- Spaces:
+    - Four spaces indent this first indented line in this Data Block.
+    - The line above set the value equal to one indent in this Data Block to four spaces.
+</pre>
+
+#### Other Indents
+
+Mixed indents in a single block results in an Other Block.
+<pre>
+- 
+	- One tab character indents this first indented line in this Data Block. It sets the value equal to one indent in this Data Block to one tab character.
+    - Four spaces indent this line, which differs to the block value for one indent.
+	- The mixed indents cause glon.to_js to ignore this block and treat it as an Other Block
+</pre>
+
+Over-indented lines also result in an Other Block.
+
+### Signs
+
+In GLON, you can end any parent line with a "sign". A sign gives instructions on how to process the items that belong to it. The current signs can: 
+
+- Keep all items as strings,
+- Produce one line from many.
+- Create multi line strings.
+
+You can add, change or remove a sign, to get different results easily.
+
+#### All Strings
+Lines that start sub objects can end with a quote sign: '"'. This sign targets any values directly in the sub object that follows. It has no effect on further nested items. The sign makes the targeted values remain strings when any active parse_types or parse_dates option may otherwise convert them to more likely types.
+
+To see the difference in the JSON area, first tick parse_types in the setting menu, then remove the quote sign from the blocks below.
+
+<pre>
+- " // &lt;- Targets the array that follows
+  - 1.1
+  - 10
+  - false
+  - null
+  - 
+    - a: 1
+    - b: true
+
+- " // &lt;- Targets the map that follows
+  - a: 1.1
+  - b: 10
+  - c: false
+  - d: null
+  - e:
+    - a: 1
+    - b: true
+</pre>
+
+The sign has no effect when parse_types and parse_dates remain inactive.
+
+#### One Line From Many
+
+Array example
+<pre>
+- The line below starts a sub-object and has a sign.
+- +
+	- This sign joins all child lines with a space character.
+	- It ignores empty lines
+	- /* Like this one. */
+	- 
+		- and preserves any extra indents child lines may have.
+	- Remove the sign to revert these lines to an array.
+- This less indented item ends the sub-object above.
+</pre>
+
+Map example
+<pre>
+- a: The line below starts a sub-object and has a sign.
+- b: +
+	- Sentence 1.
+	- Sentence 2.
+	- Sentence 3.
+- c: This less indented item ends the sub-object above.
+</pre>
+
+#### Multi-line Strings
+
+Array example
+<pre>
+- The line below starts a sub-object and has a sign.
+- - 
+	- This sign joins all child lines with new lines.
+	- It preserves any empty lines.
+	- 
+		- It also preserves any extra indents a line may have.
+	- If it finds any comments, it strips them. // Comment example.
+	- Remove the sign and these lines revert to an array.
+- This less indented item ends the sub-object above.
+</pre>
+
+Map example
+<pre>
+- a: The line below starts a sub-object and has a sign.
+- b: -
+	- Line 1.
+	- Line 2.
+	- Line 3.
+- c: This less indented item ends the sub-object above.
+</pre>
+
+## Lines
+
+Each line in an array or map can contain a comment or value, or start a sub-object populated by lines below indented a level more. Lines without indentation always belong to the top level in a Data Block.
+
+Except for commented lines, which go ignored, all lines in a Data Block work as list items and start with a bullet point as their first visible character.
+
+## Bullets
+
+Data Block item lines begin with a dash followed by a space. All Data Blocks function and render as standard plain text lists.
+
+The bullet separates hierarchy from content. Whitespace before a bullet indents a line, and confirms what level it belongs to. One space after the bullet separates it from line content which may begin with additional whitespace. Bullets help clarify where a new item starts when a long line above wraps.
+
+A list with any other bullet types will remain an Other Block. 
+Other bullet types include: '+', '*', '1)', '1.', and '•'.
+
+## Comments
+
+GLON supports inline comments, full line comments and end of line comments.
+
+### Inline Comments
+
+Any line in a Data Block can have any number of inline comments. Inline comments may start and finish anywhere in a line after the bullet. Line content may resume after an inline comment.
+<pre>
+- Styles:
+	- JavaScript: Before /* Comment */ After
+	- HTML: Before &lt;!-- Use HTML comments when writing GLON in environments support no other kind. --> After
+- Inline comment placement:
+	- Key /*comment: in key*/ name: Value /* comment 1 */ data. /* comment 2 */
+</pre>
+
+glon.to_js strips all comments and processes what remains.
+
+### Line Comments
+
+You can make any line in a Data Block a comment line by starting it with a full line comment tag: "//" (slash slash).
+<pre>
+- 1
+// - 2
+- 3
+</pre>
+
+Comment lines may have any amount of leading whitespace before the tag. This lets you align a comment with any indented content they may comment on.
+
+An inline-style comment that fills an entire line can serve the same purpose. For this to work, no visible characters may precede its opening tag or follow its closing tag.
+<pre>
+- glon.to_js strips the comment lines below.
+/* - An inline-style Javascript comment wraps the whole of this line. */
+&lt;!-- You can also use HTML comments in environments that support no other kind. -->
+</pre>
+
+glon.to_js ignores any block with all lines commented out:
+<pre>
+//- 1
+&lt;!-- - 2 -->
+/*- 3 */
+</pre>
+
+### End Comments
+
+You can use an end comment on any line in a Data Block.
+<pre>
+- End comments begin with slash slash space.
+- 1 2 3 // comment
+- Two slashes may precede anything else and remain content.
+- https://www.example.com
+</pre>
+
+You can use HTML comments in environments that support no other kind.
+<pre>
+- 1 2 3 &lt;!-- 4 -->
+</pre>
+
+# Data types
+
+## Likely
+The GLON parser includes a "parse_types" option. When set to true, this option converts item values to any type they match. Without it, data remains as Maps, Arrays and strings. The Data Block below gives a quick idea of some types it handles. The next sections go into more detail about each.
+<pre>
+- JSON compatible types:
+	- Strings: GLON
+	- True: true
+	- False: false
+	- Null: null
+	- Numbers: 8,000
+	- Big Numbers: 9007199254740991
+- Other types: 
+	- Infinity: infinity
+	- Not a Number: NaN
+	- Dates: 2023-04-05T06:07
+</pre>
+
+Note 1: The "to_json" option converts JSON incompatible types back to strings.
+
+Related: To control types, see the Type Block section.
+
+### Strings
+
+Strings may hold any content at all.
+
+Blank keys and values return an empty string.
+<pre>
+- The item below has no content.
+- 
+- Empty items parse as empty strings.
+
+- empty value →: 
+- : ← empty key
+</pre>
+
+glon.to_js has 'trim_keys' and 'trim_strings' options. These let you separately keep or trim whitespace that surrounds keys or string values.
+
+<pre>
+- A:     whitespace surrounds this value  	   
+-      B     : whitespace surrounds this key
+</pre>
+
+### True
+
+Only one value equates to true in GLON
+<pre>
+- Boolean true: true
+- These do not equal true:
+	- TRUE
+	- True
+	- true.
+	- Yes
+	- 1
+</pre>
+
+### False
+
+Only one value equates to false in GLON
+<pre>
+- Boolean false: false
+- These do not equal false:
+	- FALSE
+	- False
+	- false.
+	- No
+	- 0
+</pre>
+
+### Null
+
+Only one value equates to null in GLON
+<pre>
+- null: null
+- These do not:
+	- NULL
+	- null.
+	- Null
+	- undefined
+	- void 0
+</pre>
+
+### Numbers
+<pre>
+- Integer: 1 
+- Decimals: 3.14159
+- Negative numbers: -64.32
+- Decimal start: .4
+- With comma separators: 1,000,000
+- With underscore separators: 32_000
+</pre>
+
+Any separator must fall between two numbers.
+glon.to_js discards separators when converting to JSON or JS numbers.
+
+Strings wont parse as numbers if they contain:
+<pre>
+- Characters other than: -,_0-9.
+- A-Za-z: 1,000 BC
+- Colons: 10:51 // Time
+- Multiple dots: 1.0.1 // Version numbers
+- Mixed separators: 1,000_000.32
+</pre>
+
+If an all digit value starts with leading zeroes, it remains a string to preserve them. JavaScript strips leading zeroes from numbers.
+<pre>
+- 01
+</pre>
+
+### Big Numbers
+
+Big Integers remain strings.
+<pre>
+- Max safe:  9007199254740991
+- Min safe: -9007199254740991
+- > max safe: 9007199254740992
+- > min safe: -9007199254740992
+</pre>
+
+### Infinity
+<pre>
+- Infinity: infinity
+- Positive infinity: +infinity
+- Negative infinity: -infinity
+</pre>
+
+The above values parse to JavaScript types. The "to_json" option converts these value back to strings.
+<pre>
+- These do not equal infinity:
+  - Infinity// Title case
+  - Infinity.// other content
+  - INFINITY// uppercase
+</pre>
+
+### Not a Number
+<pre>
+- Only one value equates to "Not a Number": NaN
+- These similar values remain strings:
+	- nan
+	- NAN
+	- NaN.
+</pre>
+
+JSON has no NaN type. The "to_json" option converts NaN back to a string "NaN".
+
+### Dates
+
+glon.to_js has a separate "parse_dates" option. With "parse_dates" set to true, the formats below convert to JavaScript date objects.
+
+JSON lacks date support. With "parse_dates" and "to_json" set true, the JavaScript dates convert to ISO strings. You can toggle the setting to see how it changes the output.
+<pre>
+- Local: 
+	- s: 2001-06-02
+	- m: 2001-06-03T04:33
+	- l: 2001-06-03T04:05:06
+	- f: 2001-06-03T04:05:16.789
+- Offset: 
+	- l: 2001-06-03T04:05:06+03:00
+	- f: 2001-06-03T04:05:06.789+03:00
+- ISO: 
+	- l: 2001-06-03T04:05:06Z
+	- f: 2001-06-03T04:05:06.789Z
+- Not parsed: 
+	- a: 2022-08-21-12-10
+	- b: 2022-0821-1210
+</pre>
+
+### More Types
+
+To get other types outputs from the current version of GLON, read about the value_hook option.
+
+## Experimental
+
+### Explicit types - The Type Block
+
+GLON makes one other kind of block available. The Type Block stores pairs of keys and expected value types, and may appear anywhere before the first Data Block. When Data Block map items have names that appear in the Type Block, glon.to_js checks if their value matches the type specified. If not, it tries to try to convert the value to the target type. If the value fails to convert to a type, glon.to_js logs a message and then proceeds as it would have otherwise: parsing the value to a likely type or date if so configured.
+
+Because the Type Block explicitly requests specific types, glon.to_js will convert values to target types whenever it can: even with the "parse_types" and "parse_dates" options off, and even if the data looks more like another type.
+
+### Type Block Demo
+Type Blocks start with a parent line "- =", and the key type pairs follow on indented lines under it.
+
+The Type Block below defines what type of value three keys should hold.
+<pre>
+- =
+	- Name: String
+	- Release: Date
+	- Genres: Array
+</pre>
+
+Without a Type Block, providing you set the parse_types option to true, these values parse as numbers:
+<pre>
+- 1984
+- 1949
+</pre>
+
+With a Type Block, the same values can convert to specified types, including ones they may not look like.
+<pre>
+- Name: 1984
+- Release: 1949
+</pre>
+
+A Type Block gives glon.to_js extra information that allows it to convert one value to different types based on different keys.
+<pre>
+- Name: 2000
+- Release: 2000
+- Other: 2000
+</pre>
+
+The Type Block lets you define types once, in a single place, and have it apply to the whole document. To change the type of a specific key throughout the document, you change a single value at the top to another compatible type.
+
+The next block contains a value incompatible with a specified type. glon.to_js logs an error which this site shows in the logs panel. The Type Block can help you find and fix some input errors.
+<pre>
+- Name: true
+- Release: last year
+- Genres: 
+	- rock
+	- roll
+</pre>
+
+### Type Block Options
+
+The Type Block supports the case insensitive values below. Format them however best fits your document style. For example, 'Map', 'MAP', and 'map' all mean the same.
+
+<pre>
+- Map: 
+	- Parses inline JSON '{"a":1,"b":2}' and preserves value types
+	- Converts inline maps 'a:1,b:2' to object with strings values
+- Array:  
+	- Parses inline JSON '[1,2,"a","b"]' and preserves value types
+	- Convert inline array 'a,b,c' to a string array ["a","b","c"]
+	- Converts Maps to entries: {a:1,b:2}->[["a",1],["b",2]]
+	- Wraps anything else into an array 'false' -> [false]
+- String:
+	- Converts values to strings and objects to JSON
+- Boolean:
+	- Will accept for true: yes, 1, true
+	- Will accept for false: no, 0, false, undefined, null
+	- Also treats empty line as false
+- Integer: "1" -> 1
+- Float (Number): "1.4142" -> 1.4142
+- Date:
+	- Will convert a 4 digit values as date 'year-01-01T00:00'
+- Any:
+	- Behaves according to any other settings.
+	- Confirms a key accepts any data type
+</pre>
+
+If data given won't convert to a stated type, glon.to_js logs an error and proceeds with the data as given.
+
+# Files
+
+- Find the downloads in the GLON tab of the site's menubar.
+- Move it: Move the script file to your project folder.
+- Add it: Add it to your HTML file
+
+<pre>
+&lt;script src="glon.js">&lt;/script>
+</pre>
+
+- See the following sections for more on how to configure the various glon functions which can:
+- Convert GLON to JavaScript or JSON
+- Convert JSON to GLON
+
+- NOTE: The GLON software has three sections: glon.to, glon.from and glon.parse_string. 
+glon.js bundles them together for ease of install. If you only need some parts, and want to keep things light weight, you can delete the unneeded sections.
+
+## From GLON to JavaScript
+
+Once you have added GLON to your project, you can call the glon.to_js function.
+
+**Configure the function**
+
+This function has a few options you can set in a configuration object. These options affect the how glon.to_js converts the data to JavaScript and JSON.
+<pre>
+const config = { 
+	max_key_length: 60,
+	trim_keys: true,
+	trim_strings: true,
+	parse_dates: true,
+	parse_types: true,
+	to_json: true,
+	log: true,
+	value_hook: your_function_here,
+	key_hook: your_function_here
+}
+</pre>
+
+Skip the configuration object to use the default settings. By default, it leaves everything off except for the 'log' option.
+
+**Convert the data**
+
+When you have your configuration, you can configure AND process:
+<pre>
+// In normal-style:
+const output_object = glon.to_js(config)(string)
+
+// Or in a pipe or chain style:
+chain(document, glon.to_js(config), /* process, save, etc. */)
+</pre>
+
+Or configure THEN process:
+<pre>
+const convert_glon_to_js = glon.to_js(config)
+
+// later on:
+const output_object = convert_glon_to_js(string)
+</pre>
+
+**The output**
+
+glon.to_js returns an object of properties based on how you configured it.
+
+Its main 'js' property holds an array that represents the document. The objects in this array represent the Data Blocks in the document.
+
+**Use the output**
+
+You can access the output content like so:
+<pre>
+output_object.js
+</pre>
+
+To see what the function returned, you can run:
+<pre>
+console.log(output_object)
+</pre>
+
+To see all the property names the function returned, you can run:
+<pre>
+console.log(
+	Object.keys(output_object)
+)
+</pre>
+
+### Max Key Length
+The glon.to_js configuration object accepts a property called "max_key_length". This property expects a number. Omit this property, or set it to 0, to allow keys of any length.
+
+When glon.to_js seeks a key value separator from the start of a line, it does so relative to any max_key_length given. If it finds no separator within this range, the tool marks the level as an array.
+
+To show the feature, this demo has set max_key_length to 60:
+
+<pre>
+max_key_length: 60
+</pre>
+
+- This line exceeds the demo's max_key_length by a few characters: Example 1
+
+The block above stays as an array. The block below doesn't:
+
+- /* Long comments in a key area don't count towards a key's length */ a: Example 2
+
+
+### Trim Keys
+
+A glon.to_js configuration object option
+<pre>
+trim_keys: true or false
+</pre>
+
+When set to true:
+
+GLON input
+<pre>
+-    name   : GLON
+</pre>
+
+JSON output
+<pre>
+{ "name": "GLON" }
+</pre>
+
+
+### Trim Strings
+
+A glon.to_js configuration object option
+<pre>
+trim_strings: true or false
+</pre>
+
+When set to true:
+
+GLON input
+<pre>
+- name:    GLON    
+</pre>
+
+JSON output
+<pre>
+{ "name": "GLON" }
+</pre>
+
+### Parse Dates
+The glon.to_js configuration object accepts a property called "parse_dates".
+
+<pre>
+parse_dates: true or false
+</pre>
+
+When set to true:
+
+GLON input
+<pre>
+- 2001-02-03T04:05
+</pre>
+
+JSON output
+<pre>
+[ "2001-02-03T04:05:00.000Z" ]
+</pre>
+
+See the Dates section for supported formats.
+
+This option runs separately to the "parse_types" option.
+
+This option uses the glon.parse_string section of the GLON software.
+
+### Parse Types
+The glon.to_js configuration object accepts a property called "parse_types".
+
+<pre>
+parse_types: true or false
+</pre>
+
+When set to true, it converts a string to any type it matches:
+
+GLON input
+<pre>
+- 10
+- true
+- null
+</pre>
+
+JSON output
+<pre>
+[ 10, true, null ]
+</pre>
+
+This option uses the glon.parse_string section of the GLON software.
+
+### Convert GLON to JSON
+
+The glon.to_js configuration object accepts a property called "to_json". When set to true, glon.to_js uses a custom stringify function to process the data, and adds a "json" string property to the JavaScript object it returns.
+
+<pre>
+to_json: true or false
+</pre>
+
+### Log
+
+<pre>
+log: true or false
+</pre>
+
+The glon.to_js configuration object accepts a property called "log". If you set this property to true, the returned object will include a "logs" property. The returned "logs" property holds an array of any messages about the data. Most explain what prevents an almost-GLON block from passing as GLON.
+
+### Hooks
+glon.to_js has two hooks that accept custom functions to optionally act on and modify keys or values.
+
+#### Key Hook Intro
+The glon.to_js configuration object accepts a property called "key_hook" which you can supply with a custom function. 
+
+<pre>
+glon.to_js({
+	key_hook: ({key,comments}) => { 
+		/* your logic here */ 
+		return replacement_key
+	}
+})(document)
+</pre>
+
+glon.to_js will call any key_hook function you provide, for each named item it encounters in the data. It sends the key_hook function an object with the properties 'key' and 'comments' (an array of any comments in the key area of the same line).
+
+A key_hook function can change any item name it receives by returning a different string. If a key_hook function returns something other than a string, the item name will remain the same.
+
+A key_hook function can act on every item name it receives and act in a custom way for item names that meets specific conditions.
+
+You may want to:
+
+- Convert case. (First Name, firstName, first_name, FirstName)
+- Count how many times a key appears in data.
+- Fix a commonly misspelled key.
+- Change keys to match locale or language. (colour, color)
+- Run specific functions when keys match certain conditions.
+
+#### Key Hook Demo
+To demonstrate the key_hook feature, the site has a configuration with a key_hook similar to the one below.
+
+<pre>
+glon.to_js({
+	/*example function*/ 
+	key_hook: ({key,comments}) => {
+		if(key_hook_demo_key()){
+			return chain(
+				key,
+				strip_wikilink_brackets,
+				strip_markdown_bold,
+				trim,
+				to_snake_case,
+			)
+		}
+	}
+})(document)
+</pre>
+
+- **[[Key Hook Demo]]**    : The demo config strips the wikilink brackets, strips the Markdown bold tags, trims the key, and converts it to snake_case.
+
+#### Value Hook Intro
+
+The glon.to_js settings object accepts a "value_hook" property which you can supply with a custom function. 
+
+<pre>
+glon.to_js({
+	value_hook: ({
+    value,
+    value_comments,
+    key,
+    key_comments,
+    type_wish
+  }) => {
+		/* your logic */
+		return new_value
+	}
+})(document_string)
+</pre>
+
+If you provide glon.to_js with a value_hook function, it will call it each time it encounters a value in the data. It sends the value_hook function an object with these properties: 
+
+- "value": The value.
+- "value_comments": An array of any comments in the value area.
+- If the value belongs to a map item, it also sends:
+  - "key": The name of the value / property in the map.
+  - "key_comments": An array of any comments in the key area.
+  - "type_wish":
+    - IF a type_block specified a type for items with this key.
+    - A string stating a known wanted type.
+    - E.G: "any", "float", "integer", "array", "map", "boolean".
+
+A value_hook function can perform any task. It can act on every value in each Data Block, or operate conditionally, based on a value, its type and name. Your function can change any value it receives by returning a different one, or return nothing (undefined) for a value to remain the same.
+
+Note: If you use the value_hook option and the to_json option, make sure your function returns a JSON compatible data type: Object, Array, Number, String, Boolean.
+
+#### Value Hook Demo
+
+To demonstrate the value_hook feature, this site has a configuration similar to the one that follows, which affects some data later in this section.
+
+<pre>
+const example_configuration = {
+	value_hook: ({ value, value_comments, key, key_comments })=>{
+		if( key === "swatches") return value.split(",")
+		return value
+	}
+}
+glon.to_js(example_configuration)(string)
+</pre>
+
+The map below holds two items with the same value but different names. The item named "palette" processes normally while the value_hook acts on the item named "swatches". 
+<pre>
+- palette: stone, olive, earth
+- swatches: stone, olive, earth
+</pre>
+
+The function applies to every match in the document:
+<pre>
+- swatches: vermilion, umber, gold
+</pre>
+
+Note: This feature runs after any "key_hook". You can use both for finer control.
+
+## From JSON to GLON
+
+Once you have added GLON to your project, you can use the "glon.from_json" function. It accepts a configuration object first, then a JSON string to process. The configuration object reserves a place for future options. In this version, the function takes no options.
+<pre>
+const config = {}
+const input = "[1,2,3,4]"
+</pre>
+
+You can configure AND process
+<pre>
+const glon = glon.from_json(config)(input)
+</pre>
+
+Or configure THEN process
+<pre>
+const json_to_glon = glon.from_json(config)
+// Later on:
+const glon = json_to_glon(input)
+</pre>
+
+This feature uses the glon.from section of the glon software.
+
+## From JavaScript to GLON
+
+Once you have added GLON to your project, you can use the "glon.from_js" function. It accepts a configuration object first, then a JavaScript object or array to process. The configuration object reserves a place for future options. In this version, the function takes no options.
+<pre>
+const config = {}
+const input = [[1,2,3,4],{"a":1,"b":2}]
+</pre>
+
+You can configure AND process
+<pre>
+const glon = glon.from_js()(input)
+</pre>
+
+Or configure THEN process
+<pre>
+const js_to_glon = glon.from_js(config)
+const glon = js_to_glon(input)
+</pre>
+
+This feature uses the glon.from section of the glon software.
+</div><!--end markdown_docs-->
+    </div><!-- end sections-->
+    <div class="
+    form_item_holder
+    glon_textarea_holder
+    hide_if_scripts_disabled">
+      <label for="glon_textarea" class="no_select">GLON Text Area</label>
+      <textarea id=glon_textarea></textarea>
+      <div class="column_actions">
+        <button id="button_to_save_glon" title="Save glon.txt">Save</button>
+        <button id="button_to_copy_glon" title="Copy GLON">Copy</button>
+      </div>
+    </div>
+    <div class="
+    form_item_holder
+    json_textarea_holder
+    hide_if_scripts_disabled">
+      <label for="json_textarea" class="no_select">JSON Text Area</label>
+      <textarea id=json_textarea></textarea>
+      <div class="column_actions">
+        <button id="button_to_save_json" title="Save glon.json">Save</button>
+        <button id="button_to_copy_json" title="Copy JSON">Copy</button>
+      </div>
+    </div>
+  </div>
+  <details id="logs_textarea_holder" class="hide_if_scripts_disabled">
+    <summary class="no_select">Logs <span id="log_count"></span></summary>
+    <textarea id="logs_textarea"></textarea>
+  </details>
+  <div id="prev_next" class="no_select hide_if_scripts_disabled">
+      <span class="hide_if_scripts_disabled next_back_button" id="previous_section">&#8592;</span>
+      <span class="hide_if_scripts_disabled next_back_button" id="next_section">&#8594;</span>
+  </div>
+  <label
+  id=area_to_click_to_close_sections_navigation
+  class=hide_if_scripts_disabled
+  for=toggle_section_nav
+  ></label>
+</div>
+</div>
+<hr>
+<footer class="no_select">
+  <span><button popovertarget="license_popover">By + &copy; 2022-2025</button> <a href=https://gregabbott.pages.dev>Greg Abbott</a>
+    <!----&nbsp;|&nbsp;<a href=play.html>Playground</a><!---->
+  
+  </span>
+</footer>
+</main>
+<div popover id="license_popover">
+<pre><h2>LICENSE & ABOUT</h2>
+- Project: ~170KB (Not minified)
+
+<b>The GLON site</b>
+- Rights:
+  - By + Copyright &copy; 2022-2025, <a href=https://gregabbott.pages.dev>Greg Abbott</a>, UK. 
+  - All rights reserved. No rights granted.
+- Uses: HTML, CSS, Vanilla JavaScript. 
+
+-------------------------------
+
+<b>GLON: the format specification, and the GLON software</b>
+- GLON Software: Vanilla JavaScript.
+- GLON Documentation: Mostly E-Prime. 
+
+The MIT License
+
+Copyright &copy; 2022-2025, <a href=https://gregabbott.pages.dev>Greg Abbott</a>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</pre>
+</div>
+<div id=no_click_through></div>
+</body>
+<!-- optionally convert to types:-->
+<script src=enable_tab_key.js></script>
+<script src=glon.js></script>
+<script src=j.js></script>
+<script>
+let html_sections = {}
+window.addEventListener('load', function() {
+  /*
+  if(window.innerWidth<=900){
+    document.getElementById(`toggle_section_nav`).checked=false
+  }*/
+  let section_elements = []
+  let links_to_sections = []
+  //make documentation HTML sections on demand not onload:
+  function markdown_to_html(){
+	let section_links_ul = document
+		.getElementById(`section_links_ul`)
+	let sections = document.getElementById(`sections`)
+	let section_number = 0
+  let markdown_sections=
+    ('\n'+document.getElementById(`markdown_docs`).innerHTML)
+    .matchAll(/\n(#+) (.+?)\n([\s\S]*?)(?=\n#+ |$)/g)
+  for (const x of markdown_sections){
+    let o = {
+    level:x[1].length,
+    name: x[2],
+    id:x[2].toLowerCase().replaceAll(' ','-'),
+    content: x[3]
+    }
+    //console.log(o)
+    //make link to section
+      //anchor
+      let link_to = document.createElement('a')
+          link_to.href=`#${o.id}`
+          link_to.innerText=o.name
+          link_to.onclick=(e)=>{
+            if(//not made section yet
+              !html_sections[o.id]){
+                //make section on demand (not on load)
+              make_section(o,link_to)
+            }
+            section_to_glon_textarea(e)
+          }
+          links_to_sections.push(link_to)
+          link_to.o=o
+      //list item
+      let li = document.createElement('li')
+          li.classList.add(`link_h${o.level}`)
+          li.appendChild(link_to) 
+      //add to sidebar
+      let sidebar = document.getElementById(`section_links_ul`)
+          sidebar.appendChild(li)
+  }
+}
+markdown_to_html()
+/* page specific (sections)*/
+function make_section(o,link){
+  //alert(`making ${o.id}`)
+  o.pre_free= o.content //FOR GLON textarea
+        .replaceAll('<pre>','\n')
+        .replaceAll('</pre>','\n')
+        // as initial text escapes characters for noscript html
+        // remove HTML encoding for glon_textarea: `<!--` -> `&lt;`
+        .replaceAll('&gt;','>')
+        .replaceAll('&lt;','<')
+//make section
+let section = document.createElement('div')
+    section.id=o.id    
+  document.getElementById('sections').appendChild(section)
+  html_sections[o.id]=section
+    section.classList.add('section')
+    section.innerHTML = o.content
+            .split(/(<pre>.*?<\/pre>)/gs)
+            .map(part => {
+            if (!part.startsWith('<pre>')) {//paragraph
+                return part
+                .split('\n\n')
+                .reduce((a,paragraph,i)=>{
+                if(paragraph.trim()==='')return a
+                a+=(i==0?'':`\n`)+`<p>${
+                  paragraph
+                    .trim()
+                    .replaceAll('\n- ','<br>- ')//list items
+                    .replaceAll('\n',' ')//single line breaks
+                }</p>\n`
+                    return a
+                },
+                '')
+            }
+            return part;//preBlock
+        }).join('').trim()
+        section_elements.push(section)
+        link.related_section=section
+  return 
+}
+
+let active_section_link = null
+function section_to_glon_textarea(e){
+  
+  if(active_section_link){
+     //deactivate previous
+     // link
+    active_section_link.classList.remove('active')
+    //section
+    active_section_link.related_section.style.display='none'
+  }
+
+	active_section_link = e?.target
+  let section_name = active_section_link.o.name
+  document.getElementById('current_section_name').innerText=
+  section_name
+
+  document.title = `GLON: ${section_name}`
+	//scroll active_section_link into view
+  active_section_link
+    .scrollIntoView({block: 'nearest',behavior: `smooth`})
+  active_section_link.classList.add('active')
+  //load section
+  active_section_link.related_section.style.display='flex'
+  
+  glon_textarea.value=
+  (
+   
+    active_section_link.o.pre_free
+  )
+  .replace(/\n{3,}/g,'\n\n')
+  .trim()
+
+  //console.log(glon_textarea.value)
+  //Update next and previous section links
+  //Prev button (get sidebar Prev link)
+  let current_section_i=links_to_sections
+  .indexOf(active_section_link)
+  let prev_section_link_i=current_section_i-1
+    if(prev_section_link_i==-1){
+      prev_section_link_i=links_to_sections.length-1
+    }
+  let prev_section_link=links_to_sections[prev_section_link_i]
+  let prev_button = document.getElementById('previous_section')
+  prev_button.onclick=()=>{
+    prev_section_link.click()
+
+  }
+  
+  prev_button.innerHTML=`&#8592; `+prev_section_link.o.name
+  //Next button (get sidebar Next link)
+  let next_section_link_i=current_section_i+1
+  if(next_section_link_i==links_to_sections.length){
+    next_section_link_i=0
+  }
+  let next_section_link = links_to_sections[next_section_link_i]
+  let next_button =  document.getElementById('next_section')
+  next_button.innerHTML=next_section_link.o.name +` &#8594;`
+    
+  next_button.onclick=()=>{
+    next_section_link.click()
+  }
+  //Populate textareas with section:
+	glon_textarea.onchange()
+}
+
+  //default section to load == first
+let section_link_to_click_onload = links_to_sections[0]
+  //allow hash to set different section to load
+let initial_hash = window.location.hash.replace('#','')
+
+if(initial_hash!==''){
+  let link_relative_to_initial_hash = links_to_sections
+      .filter(x=>x.href.replace(/.*?#/,'')==initial_hash)
+      [0]
+    if(
+      //hash points to valid section
+      link_relative_to_initial_hash
+    ){
+      section_link_to_click_onload=    link_relative_to_initial_hash
+    }
+  
+}
+section_link_to_click_onload.click()
+})
+</script>
+</html>

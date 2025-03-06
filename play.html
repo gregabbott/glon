@@ -1,0 +1,184 @@
+<!-- GLON Copyright © 2022-2025 Greg Abbott (uk).
+https://gregabbott.pages.dev
+Version: 2025_0306-->
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<title>GLON PLAY</title>
+<meta charset=utf-8>
+<link rel=icon href=f.svg>
+<link rel="mask-icon" href="f.svg">
+<meta name=author content="Greg Abbott">
+<link href=c.css rel=stylesheet>
+<noscript>
+	<style>
+		.no_script_hide { display: none !important; }
+	</style>
+</noscript>
+</head>
+<body>
+	<input type=radio hidden name=font_spacing id=proportional>
+	<input type=radio hidden name=font_spacing id=monospace checked>
+	<input type=checkbox hidden id=show_glon_text_area>
+	<input type=checkbox hidden id=show_json_text_area >
+	<input type=checkbox hidden id="show_section_nav" checked>
+<main>
+	<div id=menu_bar >
+		<input name=m_bar id=close_sub_menu type=radio checked>
+		<label for=close_sub_menu></label>
+		<a href=index.html>
+      <div id="icon" title="Greg's List Object Notation"></div>
+    </a>
+		<a href=index.html>GLON</a>
+		<div class="menu_item no_script_hide">
+			<input hidden id=mm_settings name=m_bar type=radio>
+			<label class=menu_button for=mm_settings>Settings</label>
+			<fieldset id="to_js_settings_fields" role=presentation class="sub_menu_holder wider_drop_down">
+				<input type=checkbox checked hidden id=parse_types>
+				<label for=parse_types>Parse Types</label>
+				<input type=checkbox checked hidden id=parse_dates>
+				<label for=parse_dates>Parse Dates</label>
+				<input type=checkbox checked hidden id=trim_strings>
+				<label for=trim_strings>Trim Strings</label>
+				<input type=checkbox checked hidden id=trim_keys>
+				<label for=trim_keys>Trim Keys</label>
+				<input type=checkbox checked hidden id=log_errors>
+				<label for=log_errors>Log (Errors)</label>
+				<hr>
+				<span>Hooks Demo Functions</span>
+				<input type=checkbox hidden id=strip_key_bold>
+				<label for=strip_key_bold>Strip Bold from Keys</label>
+				<input type=checkbox hidden id=strip_wiki_key_brackets>
+				<label for=strip_wiki_key_brackets>Strip Wikilink Key Brackets</label>
+				<input type=checkbox hidden id=strip_wiki_value_brackets>
+				<label for=strip_wiki_value_brackets>Strip Wikilink Value Brackets</label>
+			</fieldset>
+		</div>
+		<div class="menu_item no_script_hide">
+			<input hidden id=mm_view name=m_bar type=radio>
+			<label class=menu_button for=mm_view>View</label>
+			<fieldset role=presentation class=sub_menu_holder>
+					<label for=proportional title="Show GLON in a proportional font" >Proportional</label>
+					<label for=monospace title="Show GLON in a monospace font">Monospace</label>
+					<label for=show_glon_text_area title="Converts GLON to JSON text area">GLON Text Area</label>
+					<label for=show_json_text_area title="Converts JSON to GLON text area">JSON Text Area</label>
+			</fieldset>
+		</div>
+		<div class=menu_item>
+			<input hidden id=mm_support name=m_bar type=radio>
+			<label class=menu_button for=mm_support>Give</label>
+			<fieldset role=presentation class=sub_menu_holder>
+					<a href=https://ko-fi.com/gregabbott
+						title="Support GLON on Ko-fi">Ko-fi</a>
+					<a href=https://www.buymeacoffee.com/gregabbott
+title="Support GLON on Buy Me A Coffee">Buy Me a Coffee</a>
+			</fieldset>
+		</div>
+</div>
+<div id="main">
+<div id="main_content">
+<pre hidden id="template">
+- Numbers: // example of sub map
+	- Positive: 1,024 // Accepts and strips optional underscores or commas. separators
+	- Negative: -1
+	- Decimal: 3.14
+	- Not a Number: NaN
+	- Infinity: infinity
+- Booleans: // example of sub array
+	- true
+	- false
+- Null: null
+- Dates: 2023-08-01 // See [the GLON site](https://glon.pages.dev/) for more.
+- Comment Types:
+	// full line js 1
+	/* full line js 2 */
+	&lt;!-- full line html --> 
+	- inline /* js */ 1
+	- inline <!-- html --> 2
+	- end of line // js style
+- Wikilinks:
+	- [[Wikilinks AS keys]]: [[Wikilinks AS values]]
+	- [[Wikilinks]] IN [[keys]]: [[Wikilinks]] IN [[values]]
+- Hash Tags: 
+	- #tagsInKeys: #tagInValues
+- Markdown:
+	- **Bold Keys**: **Bold values**
+	- Links:
+		- [Links as Keys](): [Links as values]()
+		- [Links]() in [Keys](): [Links]() in [values]()
+- Snippets:
+	- JavaScript: function add_one (n) { return n + 1 }
+	- JSON: 
+		- [ 1, 2, 4 ]
+		- { "a": 1, "b": 2, "c": 3 }
+	- CSS: * { padding: 0; }
+	- RegEx: (\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)
+	- HTML: &lt;a href="https://glon.pages.dev">GLON&lt;/a>
+- Signs: 
+	- Multi-line string: -
+		- The parent line above ends with a minus sign.
+		- It tells `glon.to_js` to join these lines with newlines.
+	- Single line from many: +
+		- The parent line above ends with a plus sign.
+		- It tells `glon.to_js` to join each line with a space.
+		- 
+			- Either sign functions preserve any extra indents
+- Keep key order: // To JSON
+	- a: 1
+	- b: 2
+	- 1: a
+	- 2: b
+</pre>
+<div id="main_columns">
+<div class="
+    form_item_holder
+    glon_textarea_holder
+    hide_if_scripts_disabled">
+      <label for="glon_textarea" class="no_select">GLON Text Area</label>
+<textarea id=glon_textarea>
+- a
+</textarea>
+      <div class="column_actions">
+        <button id="button_to_save_glon" title="Save glon.txt">Save</button>
+        <button id="button_to_copy_glon" title="Copy GLON">Copy</button>
+      </div>
+    </div>
+    <div class="
+    form_item_holder
+    json_textarea_holder
+    hide_if_scripts_disabled">
+      <label for="json_textarea" class="no_select">JSON Text Area</label>
+      <textarea id=json_textarea></textarea>
+      <div class="column_actions">
+        <button id="button_to_save_json" title="Save glon.json">Save</button>
+        <button id="button_to_copy_json" title="Copy JSON">Copy</button>
+      </div>
+    </div>
+  </div>
+  <details id="logs_textarea_holder" open>
+    <summary class="no_select">Logs <span id="log_count"></span></summary>
+    <textarea id="logs_textarea"></textarea>
+  </details>
+</div>
+</div><!-- end main_columns-->
+</div><!-- end main content-->
+</div><!-- end main-->
+<hr>
+<footer>
+	<span>&copy; <a href=https://gregabbott.pages.dev>Greg Abbott</a> 2022-2025
+	<noscript>&nbsp;|&nbsp;<mark>Enable scripts for live converter and examples</mark></noscript>
+</span>
+</footer>
+</main>
+</body>
+<script src=enable_tab_key.js></script>
+<script src=j.js></script>
+<script src=glon.js></script>
+<script>
+let gebi=x=>document.getElementById(x)
+window.addEventListener('load',(e)=>{
+  gebi('glon_textarea').value=gebi('template').innerText
+  convert_to_js()
+})
+</script>
+</html>

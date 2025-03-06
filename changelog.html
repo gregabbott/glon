@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=color-scheme content="dark light">
+<link rel=icon href=f.svg>
+<link rel="mask-icon" href="f.svg">
+<style>
+:root{
+	color-scheme: light dark;
+  --light: hsl(60, 25%, 95%);
+  --dark: hsl(15, 5%, 10%);
+	--base_size:13px;
+	--bg:light-dark(var(--light),var(--dark));
+	--fg:light-dark(var(--dark),var(--light));
+}
+a {
+  color: var(--fg);
+}
+* {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: monospace;
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  font-size: 15px;
+  line-height: 150%;
+}
+header,
+footer {
+  width: 100vw;
+  padding: 1ch;
+  text-align: center;
+}
+header {
+  border-bottom: 1px solid var(--fg);
+}
+footer{
+  border-top:  1px solid var(--fg);
+}
+footer, footer *{
+  font-size: 9px;
+}
+main {
+  flex:1;
+  overflow-y:auto;
+  display: flex;
+}
+pre {
+  margin: 0 auto;
+}
+</style>
+<title>GLON Changelog</title>
+</head>
+<body>
+  <header>
+    <a href="index.html">GLON</a> CHANGE LOG
+  </header>
+<main>
+<pre>
+<!-- New dates at top. per date first change at top-->
+2025
+- 2025_0306:
+- Fixes user selection styling.
+- Parses value equal to '-' as string (Fix).
+
+2024
+
+- 2024_0925:
+- Updates playground page.
+- Reinstates 'keep as string' comment '// "'.
+- Sends any item type_block data to value hook.
+- Updates documentation.
+- Improves escaped separator related logic.
+- Improves 'compare glon' table hover styles.
+- Adds + explains '"' sign for string values.
+- Hides some areas from noscript site version.
+
+- 2024_0924:
+- Merges scripts for easy user save + install.
+- Keeps code in sections so user may split.
+- Updates docs to reflect changes.
+- Improves 'docs to site' list linebreaks.
+- Removes folding concept to keep spec simple.
+- Improves site layout (head,side+main,foot).
+- Places section heading over all columns.
+- Adds logs area to frontend for user.
+- Add site prev-next section nav.
+- Adds 'save glon' and 'save json' to site.
+- Adds 'copy glon' and 'copy json' to site.
+- Updates page title when section changes.
+
+- 2024_0922:
+- Fixes site for webkit browsers.
+- Splits changelog to a load on demand page.
+- Adds comparison page.
+- Makes HTML sections on demand not on load. <!-- adds robots.txt etc to site -->
+
+- 2024_0920:
+- Fixes JSON to GLON error.
+- Returns {errors, result} from string_parser.
+- Logs user setup errors as encountered.
+- Returns user data errors with result.
+- Tweaks frontend CSS and HTML.
+- Stops type block from triggering user hooks.
+
+- 2024_0919:
+- Handles parent lines with comments and signs.
+- Adds and documents max_key_length option.
+
+- 2024_0424:
+- Writes new GLON to basic JS object logic.
+- Replaces old GLON to basic JS with new.
+- Documents separate scripts.
+- Adds type_block and eager converters logic.
+- Sends objects to key_hook and value_hook fns.
+- Sends line comments to key_hook & value_hook.
+- Updates docs to reflect hook changes.
+
+- 2024_0423:
+- Allows full-line comments to start blocks.
+- Escapes demo HTML comments in documentation.
+
+- 2024_0101:
+- Stops evaluating a block as early as possible.
+- Validates user config and reports errors.
+- Prefixes digit only keys uniquely temporarily.
+
+2023
+
+- 2023_1231:
+- Updates documentation.
+- Generates documentation HTML from plain text.
+
+- 2023_1203:
+- Only uses const and function keywords.
+
+- 2023_1202:
+- Separates type_block logic to separate file.
+
+- 2023_1129:
+- Moves enable_tab_key to a standalone file.
+- Separates site into 'play' and 'docs' page
+- Separates converters: glon_to_x, glon_from_x.
+- Separates parse_string_to_type to file.
+
+- 2023_0810:
+- Puts pre blocks on different background.
+
+- 2023_0809:
+- Adds icon.
+
+- 2023_0808:
+- Makes line-height consistent.
+- Opens drop down menus on hover.
+- Loads first section if site lacks target.
+- Styles scroll bars.
+- Ticks active setting instead of border.
+- Updates and adds .html read me to site.
+- Changes "string_fn" to "string_hook".
+- Changes "key_fn" to "key_hook".
+- Updates logs.
+- Updates logger helper tool.
+
+- 2023_0807:
+- Adds option to toggle site borders.
+
+- 2023_0807:
+- Checks no content lost in move to HTML.
+- Fixes JS to HTML conversion errors.
+- Makes CSS menu buttons consistent.
+- Adds CSS tool tip to items with title.
+- Reworks "noscript" site version CSS/HTML.
+- Polishes CSS themes and wide screen view.
+- Reintroduces JavaScript to site.
+- Converts all var to const.
+- Adds HTML previous next section links.
+- Styles visited links.
+- Passes different browser tests.
+- Updates version numbers throughout.
+- Updates all file size mentions.
+
+- 2023_0806:
+- Begins conversion to CSS instead of JS.
+- Makes "proportional monospace" switch CSS only.
+- Makes text area view switches CSS only.
+- Makes show hide section nav CSS only.
+
+- 2023_0805:
+- Converts GLON docs to HTML. No JS required to view.
+- Navigates sections using target links not JS.
+- Highlights current section in nav using CSS not JS.
+
+- 2023_0731:
+- Slims drop down menu code.
+- Removes escapes from separators in value.
+
+- 2023_0729:
+- Adds drop down menu bar.
+
+- 2023_0728:
+- Rewraps license width in all documents.
+
+- 2023_0727:
+- Removes logo to keep license simple.
+- Adds monospace proportional font switch.
+- Hides one line per sentence style. 
+
+- 2023_0725:
+- Improves site for small screens.
+
+- 2023_0724:
+- Improves JS(ON) to GLON converter.
+- Changes escaped separators ": " " = ".
+
+- 2023_0723:
+- Fixes big integer related function.
+- Clarifies documentation.
+
+- 2023_0716:
+- Links to "Logs" from site.
+- Slims "j.js" to 64 characters wide.
+
+- 2023_0715:
+- Prepares alternate method to read GLON.
+- Describes "Type Block".
+- Displays logo as icon on site.
+- Updates sidebar presentation.
+- Revises documentation flow.
+
+- 2023_0714:
+- Keeps order of numerical property names.
+- Documents map property order.
+- Runs "digit only key" only when needed.
+- Outputs object of items {js,json,logs}.
+- Renames "lint" to "log" everywhere.
+- Swaps yyyy if type_block set key to date.
+- Tidies all version logs. Sixty four wide.
+- Presents version logs in fixed pattern.
+
+- 2023_0713:
+- Splits big functions into simpler ones.
+- Increases active item contrast.
+- Refines type_block functions and logic.
+- Adds logo as favicon.
+- Refines type_block explainer.
+
+- 2023_0712:
+- Describes type_block loosely.
+- Slims GLON.js code width to sixty-four.
+- Groups related site buttons (prev next).
+
+- 2023_0711:
+- Adds new block type_block to set types.
+- Adds type_block extractor and validator.
+- Checks if key matches any type specified.
+- Tries to convert key to type_block type.
+- Logs an error if item can't match type.
+
+- 2023_0710:
+- Uses comment to keep items strings not bullet.
+- 2023_0709:
+- Explains parser hook functions.
+- Enables comments in GLON to instruct parser.
+- Improves wiki links section.
+
+- 2023_0708:
+- Adds section per format GLON plays well with.
+- Adds string_fn option to setup.
+- Sends strings to string_fn config gives.
+- Replace string with any String_fn return.
+- Adds key_fn option to setup.
+- Sends property name to any key_fn given.
+- Renames key to any string key_fn returns.
+- Explains string_fn and key_fn.
+- Ignores return from key_fn if not string.
+- Ignores string_fn if it returns nothing.
+- Tweaks leading zero logic and updates docs.
+- Updates "no script" message.
+- Improves documentation.
+- Adds "when_key" option to parser setup.
+- Looks for when_key function matching key name.
+- Sends key value to matching when_key function.
+- Processes key value before creating property.
+- Refines documents.
+
+- 2023_0707:
+- Says first item per map sets its separator.
+- Separates error logic to small functions.
+- Changes parser flow order to improve logs.
+- Documents key separator types: normal, equals.
+- Escapes separator in array[0] items from JSON.
+- Uses signs to show action available not state.
+- Joins with newline if parent has "-" sign.
+- Joins with space if parent has "+" sign.
+- Says sign should invert if clicked "+" -> "-".
+- Documents to_js and from_js.
+- Makes many blocks from JS(ON) not one.
+
+- 2023_0706:
+- Uses arrow functions only and sheds 1KB.
+- Allows and trims whitespace on parent line.
+- Cleans the code that populates site.
+- Names active section in GLON textarea label.
+- Refers to each thing with one name only.
+- Adds " = " equals key value separator.
+
+- 2023_0705:
+- Removes "ignore separator if in bracket pair".
+- Sets one rule to get separator in key. escape.
+- Keeps leading zero values as strings. "07".
+- Lets plus bullet "+ " keep value as a string.
+- Reduces code weight through refactor.
+
+- 2023_0704:
+- Documents GLON folding state in bullet tag.
+- Reduces "ing" and increases e-prime in site.
+- Refers to "indicators" as "signs" now.
+- Allows whitespace after sign.
+
+- 2023_0703:
+- Cuts "keep comments in values" option.
+- Looks for key separator outside brackets only.
+
+- 2023_0701:
+- Adds "is string enclosed in quotes" function.
+
+- 2023_0629:
+- Restores four dot separators.
+- Adds "next section" "previous" to frontend.
+- Adds license to GLON script and page.
+- Formats error messages consistently.
+- Defines word "object" to mean item with items.
+- Refers to key value pair groups only as maps.
+- Improves html structure with CSS off.
+- Improves documentation.
+
+- 2023_0628:
+- Adds validation and outputs error messages.
+- Adds lint setting to make messages optional.
+- Simplifies functions.
+- Refactors indicator functions that join kids.
+- Puts indents from JSON strings before bullet.
+
+- 2023_0627:
+- Cuts a big loop out but reduces code clarity.
+- Returns to clear code.
+
+- 2023_0626:
+- Extracts and parses GLON to js in single loop.
+- Removes fat arrows while testing change above.
+- Slims comments in GLON.js.
+- Splits functions to smaller one-job ones.
+- Refactors functions to loop less.
+- Reduces loops in full line comment remover.
+
+- 2023_0624:
+- Treats invalid data blocks as "other_blocks".
+- Treats list without "- " bullets as not-GLON.
+- Treats mixed indentation lines as other_block.
+
+- 2023_0623:
+- Documents more specifics.
+
+- 2023_0622:
+- Corrects code spelling.
+- Refactors date validator parser.
+- Lets "⌘[" and "⌘]" indent text area.
+- Adds "tab" "shift tab" to indent line.
+- Improves introduction text.
+
+- 2023_0621:
+- Adds loose introduction to GLON.
+- Adds toggles to change text areas shown.
+
+- 2023_0620:
+- Counts words on site.
+- Wraps settings in details element for space.
+- Adds sidebar toggle button in js.
+- Adds infinity data types to and from GLON.
+- Notes which types "to_json" turns to strings.
+- Documents comment types more clearly.
+- Allows inline comments as full line comments.
+- Makes sidebar full height.
+- Adds "no script" notice wording and display.
+- Improves from JSON to GLON function.
+- Separates JSON to GLON data_blocks.
+- Adds option to "remove **bold** from keys".
+
+- 2023_0619:
+- Escapes ": " in key names from JS(ON) to GLON.
+- Tells user if JSON input invalid.
+- Separates indicator related functions.
+- Updates comment styles offered.
+- Explains how to prevent array parsing as map.
+- Uses e-prime in more places.
+- Splits number functions: validate, convert.
+- Separates parse dates from parse types.
+- Adds parse_dates to config options and docs.
+- Explains big integer in documentation.
+- Tweaks string matches date format check.
+- Details all parser options.
+
+- 2023_0618:
+- Toggles sidebar when window narrows.
+- Lets sub-object parent lines hold comments.
+- Slims indictors to not start with ": ".
+- Uses "-" to join " " instead of ": ".
+- Uses "+" to join with newline. replaces ": >".
+- Splits Map documentation into many sections.
+- Allows colons in map property names.
+- Allows escaped separator in property names.
+- Allows whitespace only keys and values.
+- Allows empty only keys and values.
+
+- 2023_0616:
+- Documents in E-Prime.
+- Offers basic GLON.js setup instructions.
+
+- 2023_0614:
+- Clarifies documentation.
+- Adds end of line comments and function to cut.
+- Adds full line comments and explains.
+
+2022
+
+- 2022_0925:
+- Allows dashes for indents "-" "--" "---".
+- Adds dot key value separator: key....value.
+
+- 2022_0921:
+- Handles multi-line strings JSON to GLON .
+
+- 2022_0914:
+- Adds JS(ON) to GLON parser and explainer.
+
+- 2022_0821:
+- Adds links to site that load varied examples.
+- Adds "trim keys" and "trim strings" options.
+
+- 2022_0820:
+- Adds "indicators" feature to parent lines.
+- Joins kids with "\n" if parent ends ": >".
+- Joins kids with " " if parent ends ": ".
+
+- 2022_0819:
+- Keeps integer a string if it exceeds min safe.
+- Keeps integer a string if it exceeds max safe.
+- Swaps to number if separators exactly placed.
+- Keeps as string if number mixes separators.
+
+- 2022_0807:
+- Allows bullet types "1." and "1)".
+- Says document can have one or more blocks.
+- Says document can have GLON and other blocks.
+- Says blank lines separate blocks.
+- Says blocks can start at document start.
+- Says blocks can end with document end.
+- Says GLON top level items never have indents.
+- Says every line in GLON starts with "- ".
+- Makes maps if all lines in a block have ": ".
+- Finds GLON in string using decided rules.
+
+- 2022_0804:
+- Looks around brackets for key value separator.
+
+- 2022_0803:
+- Wraps functions into namespace "glon.x()".
+- Adds basic page for GLON input to json out.
+- Says value of one indent varies per block.
+- Says first indent in block sets indent value.
+- Parses strings to matching types "1" -> 1.
+
+- 2022_0802:
+- Builds core GLON to js functions.
+</pre>
+</main>
+<footer>
+GLON &copy; 2022-2025 <a href=https://gregabbott.pages.dev>Greg Abbott</a>
+</footer>
+</body>
+</html>

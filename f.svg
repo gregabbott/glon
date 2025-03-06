@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="_x32_023-08-09T19:35_By_Greg_Abbott_2023" x="0" y="0" version="1.1" viewBox="0 0 6400 6400">
+  <style>
+    .st0{fill:none;stroke:#fff;stroke-width:640;stroke-miterlimit:10}
+  </style>
+  <g id="icon">
+    <circle id="disc" cx="3200" cy="3200" r="3200"/>
+    <circle id="ring" cx="3200.2" cy="3199.5" r="1600" class="st0"/>
+    <path id="cut" d="M6400 3200 4943 4942 3200 3200l1743-1743z"/>
+    <path id="bar" d="M3200 3200h1920" class="st0"/>
+  </g>
+</svg>

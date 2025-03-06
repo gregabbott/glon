@@ -1,0 +1,449 @@
+<!--
+Data Serialization Format Comparison table
+By + Copyright Greg Abbott 2024-2025 
+https://gregabbott.pages.dev 
+-->
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <meta name=color-scheme content="dark light">
+    <link rel=icon href=f.svg>
+    <link rel="mask-icon" href="f.svg">
+<style>
+:root {
+  color-scheme: light dark;
+	--base_size:13px;
+	--bg:light-dark(hsl(60, 25%, 95%),hsl(15, 5%, 10%));
+	--fg:light-dark(hsl(15, 5%, 10%),hsl(60, 25%, 95%));
+	--green:hsla(130, 65%, 45%, 0.5);
+	--red:hsla(5, 100%, 70%, 0.5);
+}
+.y {
+  background-color: var(--green);
+}
+.n {
+  background-color: var(--red);
+}
+* {
+  font-size: 15px;
+  line-height: 150%;
+  font-family: monospace;
+  box-sizing: border-box;
+}
+a {
+  color: var(--fg);
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  height: 100dvh;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  display: flex;
+  flex-direction: column; 
+}
+main {
+  flex-grow: 1;
+  overflow-y:auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1ch;
+}
+header,footer{
+  padding: .5ch 1ch;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--fg);
+  > * {
+    width: 33.3333%;
+  }
+}
+footer, footer *{
+  font-size: 9px;
+}
+footer {
+  border-top:  1px dashed var(--fg);
+  text-align: center;
+}
+.c {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+body, table, h1 {
+  margin: 0 auto;
+}
+table {
+    border-collapse: collapse;
+}
+h1 {
+
+  text-align: center;
+}
+th:first-child,td:first-child{
+  text-align: right;
+}
+thead th{
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  background-color: var(--bg);
+}
+
+table:hover{
+ 
+  td,th {
+  filter: grayscale();
+  opacity: .3;
+  }
+
+  .highlight,
+  .highlight *{
+   filter: none;
+  opacity: 1;
+   /*background: hsla(50, 0%, 50%, 0.3);*/
+  }
+  
+}
+th:hover {
+   opacity: 1; 
+  }
+
+tr{  
+  padding-bottom: 1ch;
+}
+th,td{
+  padding: 0 .5ch;
+  text-align: center;
+}
+pre {
+  width: 64ch;
+  margin: 0 auto;
+}
+
+
+</style>
+<title>Compare GLON</title>
+</head>
+<body>
+  <header>
+    <a href='index.html' >GLON</a>
+    <h1>Compare <a href='index.html' >GLON</a></h1>
+    <span></span>
+  </header>
+  <main>
+  <table id="comparison">
+    <thead>
+    <tr>
+      <th>Data Serialization Format</th>
+      <th>GLON</th>
+      <th>JSON</th>
+      <th>JSON5</th>
+      <th>YAML</th>
+      <th>TOML</th>
+      <th>Hjson</th>
+      <th>NestedText</th>
+    </tr>
+    </thead>
+    <tr>
+      <td>Valid Markdown</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Data valid if indented with spaces</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Data valid if indented with tabs</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Unquoted keys (without spaces)</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Unquoted keys (with spaces)</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Allows [],{},"",'',`` anywhere in string values + keys</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Above feature & without escaping or quotes</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Unquoted strings</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Allows #hashTags anywhere in unquoted keys + values</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Allows [[WikiLinks]] in unquoted keys + values</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Can make arrays without brackets</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Can make objects (key value pairs) without {}/[]</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Supports data types other than strings</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Format parser can treat all data as strings</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Supports comments on their own lines</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>Supports comments on the same line as data</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Can preserve tabs + spaces in unquoted keys + values</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Above feature & including leading and trailing</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Can separate keys + values with Equals</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Can separate keys + values with Colon</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    </table>
+
+<pre>
+
+- SOURCES:
+  - Results of 'convert to JSON' tools per format.
+  - Documentation per format.
+  - <a href=https://gregabbott.pages.dev>Report error / correction</a>
+- COMMON TO ALL:
+  - All formats use plain text.
+  - All formats can convert to JSON.
+  - All formats offer multi-line strings.
+- FORMATS:
+  - <a href=https://glon.pages.dev>GLON</a>
+  - <a href=https://www.json.org/json-en.html>JSON</a>
+  - <a href=https://json5.org>JSON5</a>
+  - <a href=https://hjson.github.io>Hjson</a>
+  - <a href=https://nestedtext.org>NestedText</a>
+  - <a href=https://yaml.org/>YAML</a>
+  - <a href=https://toml.io/en>TOML</a>
+
+
+</pre>
+</main>
+<footer>
+By + &copy; 2024-2025 <a href=https://gregabbott.pages.dev>Greg Abbott</a> | V:2024-09-22
+</footer>
+</body>
+<script>
+  [...document.getElementById('comparison')
+  .getElementsByTagName('td')
+  ]
+  .forEach(cell=>{
+    let val = cell.innerText.trim().toLowerCase()
+    if(val=='y'){
+      //cell.classList.add('y')
+      cell.innerText='✅'
+    }
+    else if(val=='n'){
+      //cell.classList.add('n')
+      cell.innerText='❌'
+    }
+    
+  })
+const table = document.querySelector('table')
+let table_rows =  [...table.rows]
+let table_cells = table_rows.reduce((a,row)=>{
+a.push(...[...row.cells])
+return a
+},[])
+table.addEventListener('mouseover', (event) => {
+  const target = event.target;
+  if (!['TD','TH'].includes(target.tagName)) return
+  const row = target.parentNode;
+  if(//top row
+  row==table_rows[0]){
+    row.classList.add('highlight')
+  }
+  const columnIndex = target.cellIndex;
+  //highlight row name (col 1)
+  row.cells[0].classList.add('highlight');
+  if(columnIndex==0){//hovering on feature name
+    //highlight the row
+    row.classList.add('highlight')
+    //highlight all headers
+    table_rows[0].classList.add('highlight')
+  }
+  else{
+    //highlight the column title
+    //highlight the cell
+    target.classList.add('highlight')
+  }
+  //highlight the header in the column's top row
+  table.rows[0].cells[columnIndex].classList.add('highlight');          
+  /**
+  //highlight column
+  table.rows.forEach(row=>{
+    row.cells[column_index].classList.add('highlight')
+  })
+  /**/
+});
+
+//console.log(table_cells)
+table.addEventListener('mouseout', (event) => {
+  const target = event.target;
+  if (!['TD','TH'].includes(target.tagName)) {return}
+  const row = target.parentNode;
+  const columnIndex = target.cellIndex;
+  // table.rows[0].classList.remove('highlight'); 
+  //row.classList.remove('highlight');
+  table_rows.forEach(row=>row.classList.remove('highlight'))
+  table_cells.forEach(cell=>cell.classList.remove('highlight'))
+});
+</script>
+</html>
