@@ -4,8 +4,6 @@ GLON uses bullet point lists as the basis for an easy to read and write plain te
 
 [Visit the GLON website](https://gregabbott.pages.dev/glon) (or at [GitHub](https://gregabbott.github.io/glon)) for documentation with live examples, and a playground that runs the GLON software. Written in vanilla JavaScript with no dependencies, The GLON software works as a configurable two way GLON to JSON converter. Its options include choosing whether to parse types or to keep everything as strings. The GLON to JSON convertor also comes with hooks for custom functions. These functions can act on the data they receive, and optionally return different data to use instead.
 
-You can support GLON at [Buy Me a Coffee](https://www.buymeacoffee.com/gregabbott) and [Ko-fi](https://ko-fi.com/gregabbott).
-
 To see how GLON relates other data serialization formats, visit the [GLON compare page](https://gregabbott.pages.dev/glon/compare).
 
 # Example
